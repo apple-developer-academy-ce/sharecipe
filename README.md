@@ -1,5 +1,5 @@
 # Sharecipe
-Sharecipe is a all new iOS application for users that want to learn how to survive in kitchen! Learn how to cook in different levels with our app and have fun!
+![SharecipeGithub](https://github.com/apple-developer-academy-ce/sharecipe/assets/9482093/f7a811c0-f71f-4d03-9677-51a7821599ac)
 
 
 ### 1. Big Idea
