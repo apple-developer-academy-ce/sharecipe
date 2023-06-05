@@ -17,3 +17,15 @@ Application capable of teaching cooking to people with little knowledge on the s
 3. Select Recipe
 4. View Recipe and Print it (if you want)
 5. Back to the start
+
+# Selected Apple Technology
+1. Widgets (for cooking timers)
+2. Apple Pay (for gourmetized cooking recipes. E.g: Premium Vapored Egg with parsley)
+
+# Selected Apple Plataform
+1. iPad
+2. iPhone
+
+# Development Requiriments
+1. SwiftLint
+2. SwiftUI
