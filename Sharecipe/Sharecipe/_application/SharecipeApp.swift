@@ -11,7 +11,9 @@ import SwiftUI
 struct SharecipeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack {
+                LoadingView()
+            }
         }
     }
 }

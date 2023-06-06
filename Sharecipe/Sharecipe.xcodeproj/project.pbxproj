@@ -8,17 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		857A2EBD2A2E234B00831EEE /* SharecipeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857A2EBC2A2E234B00831EEE /* SharecipeApp.swift */; };
-		857A2EBF2A2E234B00831EEE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857A2EBE2A2E234B00831EEE /* ContentView.swift */; };
 		857A2EC12A2E234C00831EEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 857A2EC02A2E234C00831EEE /* Assets.xcassets */; };
-		857A2EC42A2E234C00831EEE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 857A2EC32A2E234C00831EEE /* Preview Assets.xcassets */; };
+		859F002D2A2F5C7E00834C24 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859F002C2A2F5C7E00834C24 /* LoadingView.swift */; };
+		859F002F2A2F5CE700834C24 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859F002E2A2F5CE700834C24 /* HomeView.swift */; };
+		859F00312A2F5CF500834C24 /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859F00302A2F5CF500834C24 /* RecipeView.swift */; };
+		859F00332A2F5D0100834C24 /* PrintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859F00322A2F5D0100834C24 /* PrintView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		857A2EB92A2E234B00831EEE /* Sharecipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sharecipe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		857A2EBC2A2E234B00831EEE /* SharecipeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharecipeApp.swift; sourceTree = "<group>"; };
-		857A2EBE2A2E234B00831EEE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		857A2EC02A2E234C00831EEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		857A2EC32A2E234C00831EEE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		859F002C2A2F5C7E00834C24 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		859F002E2A2F5CE700834C24 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		859F00302A2F5CF500834C24 /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
+		859F00322A2F5D0100834C24 /* PrintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,20 +55,54 @@
 		857A2EBB2A2E234B00831EEE /* Sharecipe */ = {
 			isa = PBXGroup;
 			children = (
-				857A2EBC2A2E234B00831EEE /* SharecipeApp.swift */,
-				857A2EBE2A2E234B00831EEE /* ContentView.swift */,
-				857A2EC02A2E234C00831EEE /* Assets.xcassets */,
-				857A2EC22A2E234C00831EEE /* Preview Content */,
+				859F00272A2F5B7000834C24 /* _shared */,
+				859F00282A2F5B7D00834C24 /* _application */,
+				859F002A2A2F5B9700834C24 /* model */,
+				859F002B2A2F5B9A00834C24 /* view */,
+				859F00292A2F5B9200834C24 /* controller */,
 			);
 			path = Sharecipe;
 			sourceTree = "<group>";
 		};
-		857A2EC22A2E234C00831EEE /* Preview Content */ = {
+		859F00272A2F5B7000834C24 /* _shared */ = {
 			isa = PBXGroup;
 			children = (
-				857A2EC32A2E234C00831EEE /* Preview Assets.xcassets */,
+				857A2EC02A2E234C00831EEE /* Assets.xcassets */,
 			);
-			path = "Preview Content";
+			path = _shared;
+			sourceTree = "<group>";
+		};
+		859F00282A2F5B7D00834C24 /* _application */ = {
+			isa = PBXGroup;
+			children = (
+				857A2EBC2A2E234B00831EEE /* SharecipeApp.swift */,
+			);
+			path = _application;
+			sourceTree = "<group>";
+		};
+		859F00292A2F5B9200834C24 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		859F002A2A2F5B9700834C24 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		859F002B2A2F5B9A00834C24 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				859F002C2A2F5C7E00834C24 /* LoadingView.swift */,
+				859F002E2A2F5CE700834C24 /* HomeView.swift */,
+				859F00302A2F5CF500834C24 /* RecipeView.swift */,
+				859F00322A2F5D0100834C24 /* PrintView.swift */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,7 +164,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				857A2EC42A2E234C00831EEE /* Preview Assets.xcassets in Resources */,
 				857A2EC12A2E234C00831EEE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -160,8 +197,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				857A2EBF2A2E234B00831EEE /* ContentView.swift in Sources */,
+				859F00332A2F5D0100834C24 /* PrintView.swift in Sources */,
+				859F002F2A2F5CE700834C24 /* HomeView.swift in Sources */,
 				857A2EBD2A2E234B00831EEE /* SharecipeApp.swift in Sources */,
+				859F00312A2F5CF500834C24 /* RecipeView.swift in Sources */,
+				859F002D2A2F5C7E00834C24 /* LoadingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,7 +329,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Sharecipe/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 4742JJ9L6T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -318,7 +358,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Sharecipe/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 4742JJ9L6T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
