@@ -13,6 +13,10 @@
 		85366F7E2A2F706400FF327D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85366F7D2A2F706400FF327D /* Assets.xcassets */; };
 		85366F812A2F706400FF327D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85366F802A2F706400FF327D /* Preview Assets.xcassets */; };
 		85366F8D2A2F710200FF327D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85366F8C2A2F710200FF327D /* LoadingView.swift */; };
+		857FF4E42A30E0890044C19D /* DeliCake.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 857FF4E32A30E0890044C19D /* DeliCake.ttf */; };
+		857FF4E62A30E37E0044C19D /* LemonJelly.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 857FF4E52A30E37D0044C19D /* LemonJelly.ttf */; };
+		85C0A55C2A30A50400477732 /* _disabled.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 85C0A55B2A30A50400477732 /* _disabled.rtf */; };
+		85C0A55E2A30BB6B00477732 /* SegmentationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C0A55D2A30BB6B00477732 /* SegmentationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +27,10 @@
 		85366F7D2A2F706400FF327D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		85366F802A2F706400FF327D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		85366F8C2A2F710200FF327D /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = SOURCE_ROOT; };
+		857FF4E32A30E0890044C19D /* DeliCake.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DeliCake.ttf; sourceTree = "<group>"; };
+		857FF4E52A30E37D0044C19D /* LemonJelly.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = LemonJelly.ttf; sourceTree = "<group>"; };
+		85C0A55B2A30A50400477732 /* _disabled.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = _disabled.rtf; sourceTree = "<group>"; };
+		85C0A55D2A30BB6B00477732 /* SegmentationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,10 +65,9 @@
 			children = (
 				85366F7F2A2F706400FF327D /* Preview Content */,
 				85366F872A2F709200FF327D /* _application */,
+				85C0A55F2A30D73F00477732 /* _pocs */,
 				85366F882A2F70A100FF327D /* _shared */,
-				85366F8A2A2F70D900FF327D /* model */,
 				85366F892A2F70D000FF327D /* view */,
-				85366F8B2A2F70DF00FF327D /* controller */,
 			);
 			path = Sharecipe;
 			sourceTree = "<group>";
@@ -84,6 +91,8 @@
 		85366F882A2F70A100FF327D /* _shared */ = {
 			isa = PBXGroup;
 			children = (
+				85C0A5602A30D93E00477732 /* _fonts */,
+				85C0A55B2A30A50400477732 /* _disabled.rtf */,
 				85366F7D2A2F706400FF327D /* Assets.xcassets */,
 			);
 			path = _shared;
@@ -99,18 +108,21 @@
 			path = view;
 			sourceTree = "<group>";
 		};
-		85366F8A2A2F70D900FF327D /* model */ = {
+		85C0A55F2A30D73F00477732 /* _pocs */ = {
 			isa = PBXGroup;
 			children = (
+				85C0A55D2A30BB6B00477732 /* SegmentationView.swift */,
 			);
-			path = model;
+			path = _pocs;
 			sourceTree = "<group>";
 		};
-		85366F8B2A2F70DF00FF327D /* controller */ = {
+		85C0A5602A30D93E00477732 /* _fonts */ = {
 			isa = PBXGroup;
 			children = (
+				857FF4E52A30E37D0044C19D /* LemonJelly.ttf */,
+				857FF4E32A30E0890044C19D /* DeliCake.ttf */,
 			);
-			path = controller;
+			path = _fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,8 +183,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				857FF4E62A30E37E0044C19D /* LemonJelly.ttf in Resources */,
 				85366F812A2F706400FF327D /* Preview Assets.xcassets in Resources */,
 				85366F7E2A2F706400FF327D /* Assets.xcassets in Resources */,
+				857FF4E42A30E0890044C19D /* DeliCake.ttf in Resources */,
+				85C0A55C2A30A50400477732 /* _disabled.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,6 +202,7 @@
 				85366F7A2A2F706300FF327D /* SharecipeApp.swift in Sources */,
 				852080A32A2F718900DB9ADC /* RecipeView.swift in Sources */,
 				85366F8D2A2F710200FF327D /* LoadingView.swift in Sources */,
+				85C0A55E2A30BB6B00477732 /* SegmentationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,6 +334,7 @@
 				DEVELOPMENT_TEAM = 4742JJ9L6T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sharecipe/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -347,6 +364,7 @@
 				DEVELOPMENT_TEAM = 4742JJ9L6T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sharecipe/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

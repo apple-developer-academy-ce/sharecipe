@@ -13,13 +13,31 @@ struct HomeView: View {
     let horizontalMenuItems: [MenuItem] = [
         MenuItem(name: "Iniciante"),
         MenuItem(name: "Aprendiz"),
-        MenuItem(name: "Intermediário"),
-        MenuItem(name: "Avançado"),
-        MenuItem(name: "Gourmet")
+        MenuItem(name: "Intermediário")
     ]
 
     //Iniciante Options
     let verticalMenuItems: [MenuItem] = [
+        MenuItem(name: "Ovo Cuzido"),
+        MenuItem(name: "Ovo Estralado"),
+        MenuItem(name: "Arroz Branco"),
+        MenuItem(name: "Nissim Miojo"),
+        MenuItem(name: "Ovo Cuzido"),
+        MenuItem(name: "Ovo Estralado"),
+        MenuItem(name: "Arroz Branco"),
+        MenuItem(name: "Nissim Miojo"),
+        MenuItem(name: "Ovo Cuzido"),
+        MenuItem(name: "Ovo Estralado"),
+        MenuItem(name: "Arroz Branco"),
+        MenuItem(name: "Nissim Miojo"),
+        MenuItem(name: "Ovo Cuzido"),
+        MenuItem(name: "Ovo Estralado"),
+        MenuItem(name: "Arroz Branco"),
+        MenuItem(name: "Nissim Miojo"),
+        MenuItem(name: "Ovo Cuzido"),
+        MenuItem(name: "Ovo Estralado"),
+        MenuItem(name: "Arroz Branco"),
+        MenuItem(name: "Nissim Miojo"),
         MenuItem(name: "Ovo Cuzido"),
         MenuItem(name: "Ovo Estralado"),
         MenuItem(name: "Arroz Branco"),
@@ -63,37 +81,23 @@ struct HomeView: View {
 
     init() {
         _selectedItem = State(initialValue: horizontalMenuItems[0])
+
+        for familyName in UIFont.familyNames {
+            print(familyName)
+
+            for fontName in UIFont.fontNames(forFamilyName: familyName) {
+                print("-- \(fontName)")
+            }
+        }
     }
 
     var body: some View {
         ZStack {
+
             VStack {
-                VStack(alignment: .leading, spacing: 0) {  // Set spacing to 0
-                    Text("Sharecipe")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-
-                    TextField("Search", text: $searchText)
-                        .padding(7)
-                        .padding(.leading, 35)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(8)
-                        .frame(height: 36)
-                        .overlay(
-                            HStack {
-                                Image(systemName: "magnifyingglass")
-                                    .foregroundColor(.gray)
-                                Spacer()
-                            }
-                            .padding(.leading, 8)
-                        )
-                        .padding(.top, 0)
-                }
-                .padding(.horizontal)
-
-                Divider()
 
                 ScrollView(.horizontal, showsIndicators: false) {
+
                     HStack {
                         ForEach(horizontalMenuItems) { item in
                             Button(action: {
@@ -110,7 +114,7 @@ struct HomeView: View {
                     }
                     .padding()
                 }
-                //.border(Color.green)
+                .border(Color.blue)
 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack {
@@ -129,8 +133,7 @@ struct HomeView: View {
                     }
                     .padding()
                 }
-                //.border(Color.blue)
-
+                .border(Color.green)
 
                 //Bypass to fix the background coolor of toolbar .bottombar
                 HStack {
@@ -139,13 +142,17 @@ struct HomeView: View {
                 .background(Color(.systemGray6))
             }
         }
+        .border(Color.yellow)
         .navigationBarBackButtonHidden()
-        //FIX THIS SHIT. CREATE A VSTACK TO THE BOTTOM GRAY EXPLOTING SAFE AREA
-        //.navigationBarTitle(Text("Sharecipe"), displayMode: .inline)
-        //.navigationTitle("Sharecipe")
         .toolbarBackground(Color(.systemGray6), for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbar {
+
+            ToolbarItem(placement: .principal) {
+                Text("Sharecipe") //Title Aligned to the left of screen
+                        .font(.custom("DeliCakeRegular", size: 36))
+            }
+
             ToolbarItemGroup(placement: .navigationBarTrailing) {
 
                 Button(action: {
@@ -157,21 +164,6 @@ struct HomeView: View {
 
 
             ToolbarItemGroup(placement: .bottomBar) {
-                Button(action: {}) {
-                    Image(systemName: "house.fill")
-                }
-
-                Spacer()
-
-                Button(action: {}) {
-                    Image(systemName: "house.fill")
-                }
-
-                Spacer()
-
-                Button(action: {}) {
-                    Image(systemName: "house.fill")
-                }
             }
         }
 
