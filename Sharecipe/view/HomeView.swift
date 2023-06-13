@@ -4,6 +4,7 @@ struct Recipe: Identifiable, Equatable {
     let id = UUID()
     let name: String
     let preparationTime: String
+    let image: String
 
     static func == (lhs: Recipe, rhs: Recipe) -> Bool {
         return lhs.id == rhs.id
@@ -76,21 +77,21 @@ struct HomeView: View {
 
     let cookingLevels: [CookingLevel] = [
         CookingLevel(name: "Simples", recipes: [
-            Recipe(name: "Ovo Cuzido", preparationTime: "5 minutes"),
-            Recipe(name: "Ovo Mexido", preparationTime: "5 minutes"),
-            Recipe(name: "Bife do Olhão", preparationTime: "5 minutes"),
-            Recipe(name: "Arroz Branco", preparationTime: "10 minutes"),
-            Recipe(name: "Frango Desnutrido", preparationTime: "30 minutes"),
+            Recipe(name: "Ovo Cuzido", preparationTime: "5 minutes", image: "cardTemplate"),
+            Recipe(name: "Ovo Mexido", preparationTime: "5 minutes", image: "cardTemplate"),
+            Recipe(name: "Bife do Olhão", preparationTime: "5 minutes", image: "cardTemplate"),
+            Recipe(name: "Arroz Branco", preparationTime: "10 minutes", image: "cardTemplate"),
+            Recipe(name: "Frango Desnutrido", preparationTime: "30 minutes", image: "cardTemplate"),
 
             // add other recipes for this level...
         ]),
         CookingLevel(name: "Médio", recipes: [
-            Recipe(name: "Macarrão", preparationTime: "15 minutes"),
-            Recipe(name: "Feijão", preparationTime: "30 minutes"),
+            Recipe(name: "Macarrão", preparationTime: "15 minutes", image: "cardTemplate"),
+            Recipe(name: "Feijão", preparationTime: "30 minutes", image: "cardTemplate"),
         ]),
         CookingLevel(name: "Elaborado", recipes: [
-            Recipe(name: "Macarronada", preparationTime: "15 minutes"),
-            Recipe(name: "Feijoada", preparationTime: "30 minutes"),
+            Recipe(name: "Macarronada", preparationTime: "15 minutes", image: "cardTemplate"),
+            Recipe(name: "Feijoada", preparationTime: "30 minutes", image: "cardTemplate"),
         ]),
     ]
 
@@ -115,24 +116,35 @@ struct HomeView: View {
                     ("Elaborado", "PRESUNTO")
                 ])
 
+
+
+
+                //WORKING MENU
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack {
                         ForEach(cookingLevels[selectedLevelIndex].recipes) { recipe in
                             NavigationLink(destination: RecipeView(recipe: recipe)) {
-                                VStack(alignment: .leading) {
-                                    Text(recipe.name)
-                                    Text("Preparation time: \(recipe.preparationTime)")
-                                        .font(.subheadline)
-                                        .foregroundColor(.gray)
-                                }
-                                .frame(maxWidth: .infinity, minHeight: 200)
-                                .padding()
-                                .background(
-                                    Image("cardTemplate")
+                                ZStack(alignment: .bottomLeading) {
+                                    Image(recipe.image)
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
-                                )
-                                .foregroundColor(.white)
+                                        .cornerRadius(8)
+
+                                    VStack(alignment: .leading) {
+                                        Text(recipe.name)
+                                        Text("Preparation time: \(recipe.preparationTime)")
+                                            .font(.subheadline)
+                                            .foregroundColor(.gray)
+                                    }
+                                    //.frame(maxWidth: .infinity, minHeight: 10)
+
+                                    .padding()
+                                    .background(Color.black.opacity(0.3))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(8)
+                                }
+
+                                .frame(maxWidth: .infinity, minHeight: 200)
                                 .cornerRadius(8)
                             }
                         }
@@ -141,9 +153,11 @@ struct HomeView: View {
                 }
 
 
+
                 //Bypass to fix the background coolor of toolbar .bottombar
                 HStack {
                     Spacer()
+                    Text("")
                 }
                 .background(Color(.systemGray6))
             }
