@@ -15,6 +15,7 @@
 		850CEEC92A389D31004F14A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 850CEEC82A389D31004F14A9 /* Assets.xcassets */; };
 		850CEECD2A389D31004F14A9 /* TimeTracker_WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 850CEEBD2A389D30004F14A9 /* TimeTracker_WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		850CEED22A38A26B004F14A9 /* TimeTrackingAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850CEE632A375640004F14A9 /* TimeTrackingAttributes.swift */; };
+		850CEED42A392B32004F14A9 /* RecipeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850CEED32A392B32004F14A9 /* RecipeData.swift */; };
 		852080A12A2F717400DB9ADC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852080A02A2F717400DB9ADC /* HomeView.swift */; };
 		852080A32A2F718900DB9ADC /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852080A22A2F718900DB9ADC /* RecipeView.swift */; };
 		85366F7A2A2F706300FF327D /* SharecipeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85366F792A2F706300FF327D /* SharecipeApp.swift */; };
@@ -24,7 +25,6 @@
 		857FF4E42A30E0890044C19D /* DeliCake.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 857FF4E32A30E0890044C19D /* DeliCake.ttf */; };
 		857FF4E62A30E37E0044C19D /* LemonJelly.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 857FF4E52A30E37D0044C19D /* LemonJelly.ttf */; };
 		85C0A55C2A30A50400477732 /* _disabled.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 85C0A55B2A30A50400477732 /* _disabled.rtf */; };
-		85C0A55E2A30BB6B00477732 /* SegmentationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C0A55D2A30BB6B00477732 /* SegmentationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +60,7 @@
 		850CEEC62A389D30004F14A9 /* TimeTracker_Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTracker_Widget.swift; sourceTree = "<group>"; };
 		850CEEC82A389D31004F14A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		850CEECA2A389D31004F14A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		850CEED32A392B32004F14A9 /* RecipeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeData.swift; sourceTree = "<group>"; };
 		852080A02A2F717400DB9ADC /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		852080A22A2F718900DB9ADC /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
 		85366F762A2F706300FF327D /* Sharecipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sharecipe.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,7 +71,6 @@
 		857FF4E32A30E0890044C19D /* DeliCake.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DeliCake.ttf; sourceTree = "<group>"; };
 		857FF4E52A30E37D0044C19D /* LemonJelly.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = LemonJelly.ttf; sourceTree = "<group>"; };
 		85C0A55B2A30A50400477732 /* _disabled.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = _disabled.rtf; sourceTree = "<group>"; };
-		85C0A55D2A30BB6B00477732 /* SegmentationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,7 +137,6 @@
 			children = (
 				85366F7F2A2F706400FF327D /* Preview Content */,
 				85366F872A2F709200FF327D /* _application */,
-				85C0A55F2A30D73F00477732 /* _pocs */,
 				85366F882A2F70A100FF327D /* _shared */,
 				85366F892A2F70D000FF327D /* view */,
 			);
@@ -163,10 +162,11 @@
 		85366F882A2F70A100FF327D /* _shared */ = {
 			isa = PBXGroup;
 			children = (
+				850CEED32A392B32004F14A9 /* RecipeData.swift */,
+				850CEE632A375640004F14A9 /* TimeTrackingAttributes.swift */,
 				85C0A5602A30D93E00477732 /* _fonts */,
 				85C0A55B2A30A50400477732 /* _disabled.rtf */,
 				85366F7D2A2F706400FF327D /* Assets.xcassets */,
-				850CEE632A375640004F14A9 /* TimeTrackingAttributes.swift */,
 			);
 			path = _shared;
 			sourceTree = "<group>";
@@ -179,14 +179,6 @@
 				852080A22A2F718900DB9ADC /* RecipeView.swift */,
 			);
 			path = view;
-			sourceTree = "<group>";
-		};
-		85C0A55F2A30D73F00477732 /* _pocs */ = {
-			isa = PBXGroup;
-			children = (
-				85C0A55D2A30BB6B00477732 /* SegmentationView.swift */,
-			);
-			path = _pocs;
 			sourceTree = "<group>";
 		};
 		85C0A5602A30D93E00477732 /* _fonts */ = {
@@ -315,9 +307,9 @@
 				852080A12A2F717400DB9ADC /* HomeView.swift in Sources */,
 				85366F7A2A2F706300FF327D /* SharecipeApp.swift in Sources */,
 				852080A32A2F718900DB9ADC /* RecipeView.swift in Sources */,
+				850CEED42A392B32004F14A9 /* RecipeData.swift in Sources */,
 				85366F8D2A2F710200FF327D /* LoadingView.swift in Sources */,
 				850CEE642A375640004F14A9 /* TimeTrackingAttributes.swift in Sources */,
-				85C0A55E2A30BB6B00477732 /* SegmentationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

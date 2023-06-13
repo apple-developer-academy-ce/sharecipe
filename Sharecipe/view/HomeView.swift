@@ -5,6 +5,8 @@ struct Recipe: Identifiable, Equatable {
     let name: String
     let preparationTime: String
     let image: String
+    let level: String
+    let portion: String
 
     static func == (lhs: Recipe, rhs: Recipe) -> Bool {
         return lhs.id == rhs.id
@@ -70,37 +72,14 @@ struct CustomUnderlineView: View {
     }
 }
 
-
-
-
 struct HomeView: View {
-
-    let cookingLevels: [CookingLevel] = [
-        CookingLevel(name: "Simples", recipes: [
-            Recipe(name: "Ovo Cuzido", preparationTime: "5 minutes", image: "cardTemplate"),
-            Recipe(name: "Ovo Mexido", preparationTime: "5 minutes", image: "cardTemplate"),
-            Recipe(name: "Bife do Olhão", preparationTime: "5 minutes", image: "cardTemplate"),
-            Recipe(name: "Arroz Branco", preparationTime: "10 minutes", image: "cardTemplate"),
-            Recipe(name: "Frango Desnutrido", preparationTime: "30 minutes", image: "cardTemplate"),
-
-            // add other recipes for this level...
-        ]),
-        CookingLevel(name: "Médio", recipes: [
-            Recipe(name: "Macarrão", preparationTime: "15 minutes", image: "cardTemplate"),
-            Recipe(name: "Feijão", preparationTime: "30 minutes", image: "cardTemplate"),
-        ]),
-        CookingLevel(name: "Elaborado", recipes: [
-            Recipe(name: "Macarronada", preparationTime: "15 minutes", image: "cardTemplate"),
-            Recipe(name: "Feijoada", preparationTime: "30 minutes", image: "cardTemplate"),
-        ]),
-    ]
 
     @State private var selectedLevel: CookingLevel
     @State private var selectedLevelIndex: Int = 0
 
 
     init() {
-        _selectedLevel = State(initialValue: cookingLevels[0])
+        _selectedLevel = State(initialValue: RecipeData.cookingLevels[0])
 
     }
 
@@ -117,12 +96,10 @@ struct HomeView: View {
                 ])
 
 
-
-
                 //WORKING MENU
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack {
-                        ForEach(cookingLevels[selectedLevelIndex].recipes) { recipe in
+                        ForEach(RecipeData.cookingLevels[selectedLevelIndex].recipes) { recipe in
                             NavigationLink(destination: RecipeView(recipe: recipe)) {
                                 ZStack(alignment: .bottomLeading) {
                                     Image(recipe.image)
@@ -173,12 +150,6 @@ struct HomeView: View {
             }
 
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-
-//                Button(action: {
-//
-//                } ) {
-//                    Image(systemName: "gearshape")
-//                }
             }
 
 
