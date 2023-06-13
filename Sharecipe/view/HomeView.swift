@@ -82,13 +82,13 @@ struct HomeView: View {
     init() {
         _selectedItem = State(initialValue: horizontalMenuItems[0])
 
-        for familyName in UIFont.familyNames {
-            print(familyName)
-
-            for fontName in UIFont.fontNames(forFamilyName: familyName) {
-                print("-- \(fontName)")
-            }
-        }
+//        for familyName in UIFont.familyNames {
+//            print(familyName)
+//
+//            for fontName in UIFont.fontNames(forFamilyName: familyName) {
+//                print("-- \(fontName)")
+//            }
+//        }
     }
 
     var body: some View {
