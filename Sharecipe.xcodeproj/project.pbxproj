@@ -14,6 +14,7 @@
 		850CEEC72A389D30004F14A9 /* TimeTracker_Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850CEEC62A389D30004F14A9 /* TimeTracker_Widget.swift */; };
 		850CEEC92A389D31004F14A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 850CEEC82A389D31004F14A9 /* Assets.xcassets */; };
 		850CEECD2A389D31004F14A9 /* TimeTracker_WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 850CEEBD2A389D30004F14A9 /* TimeTracker_WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		850CEED22A38A26B004F14A9 /* TimeTrackingAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850CEE632A375640004F14A9 /* TimeTrackingAttributes.swift */; };
 		852080A12A2F717400DB9ADC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852080A02A2F717400DB9ADC /* HomeView.swift */; };
 		852080A32A2F718900DB9ADC /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852080A22A2F718900DB9ADC /* RecipeView.swift */; };
 		85366F7A2A2F706300FF327D /* SharecipeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85366F792A2F706300FF327D /* SharecipeApp.swift */; };
@@ -302,6 +303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				850CEEC52A389D30004F14A9 /* TimeTracker_WidgetBundle.swift in Sources */,
+				850CEED22A38A26B004F14A9 /* TimeTrackingAttributes.swift in Sources */,
 				850CEEC72A389D30004F14A9 /* TimeTracker_Widget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

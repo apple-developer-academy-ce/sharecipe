@@ -1,94 +1,106 @@
 import SwiftUI
 
-struct MenuItem: Identifiable, Equatable {
+struct Recipe: Identifiable, Equatable {
     let id = UUID()
     let name: String
+    let preparationTime: String
 
-    static func == (lhs: MenuItem, rhs: MenuItem) -> Bool {
+    static func == (lhs: Recipe, rhs: Recipe) -> Bool {
         return lhs.id == rhs.id
     }
 }
 
+struct CookingLevel: Identifiable, Equatable {
+    let id = UUID()
+    let name: String
+    let recipes: [Recipe]
+
+    static func == (lhs: CookingLevel, rhs: CookingLevel) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
+struct CustomSegmentedControl: View {
+    @Binding var selectedSegment: Int
+    let labels: [(String, String)]
+
+    var body: some View {
+        VStack(spacing: 0) {
+            HStack {
+                Spacer()
+                ForEach(0..<labels.count) { index in
+                    Button(action: {
+                        self.selectedSegment = index
+                    }) {
+                        HStack {
+                            Image(labels[index].1)
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                            Text(labels[index].0)
+                                .font(.subheadline)
+                        }
+                    }
+                    .padding(10)
+
+                }
+                Spacer()
+            }
+            CustomUnderlineView(selectedSegment: $selectedSegment, labels: labels)
+        }
+    }
+}
+
+struct CustomUnderlineView: View {
+    @Binding var selectedSegment: Int
+    let labels: [(String, String)]
+
+    var body: some View {
+        ZStack {
+            GeometryReader { geometry in
+                HStack(alignment: .bottom, spacing: 0) {
+                    ForEach(0..<labels.count) { index in
+                        Rectangle()
+                            .fill(index == selectedSegment ? Color.black : Color.gray)
+                            .frame(width: geometry.size.width / CGFloat(labels.count), height: 2)
+                    }
+                }
+            }
+        }.frame(height: 2)
+    }
+}
+
+
+
+
 struct HomeView: View {
-    let horizontalMenuItems: [MenuItem] = [
-        MenuItem(name: "Iniciante"),
-        MenuItem(name: "Aprendiz"),
-        MenuItem(name: "Intermediário")
+
+    let cookingLevels: [CookingLevel] = [
+        CookingLevel(name: "Simples", recipes: [
+            Recipe(name: "Ovo Cuzido", preparationTime: "5 minutes"),
+            Recipe(name: "Ovo Mexido", preparationTime: "5 minutes"),
+            Recipe(name: "Bife do Olhão", preparationTime: "5 minutes"),
+            Recipe(name: "Arroz Branco", preparationTime: "10 minutes"),
+            Recipe(name: "Frango Desnutrido", preparationTime: "30 minutes"),
+
+            // add other recipes for this level...
+        ]),
+        CookingLevel(name: "Médio", recipes: [
+            Recipe(name: "Macarrão", preparationTime: "15 minutes"),
+            Recipe(name: "Feijão", preparationTime: "30 minutes"),
+        ]),
+        CookingLevel(name: "Elaborado", recipes: [
+            Recipe(name: "Macarronada", preparationTime: "15 minutes"),
+            Recipe(name: "Feijoada", preparationTime: "30 minutes"),
+        ]),
     ]
 
-    //Iniciante Options
-    let verticalMenuItems: [MenuItem] = [
-        MenuItem(name: "Ovo Cuzido"),
-        MenuItem(name: "Ovo Estralado"),
-        MenuItem(name: "Arroz Branco"),
-        MenuItem(name: "Nissim Miojo"),
-        MenuItem(name: "Ovo Cuzido"),
-        MenuItem(name: "Ovo Estralado"),
-        MenuItem(name: "Arroz Branco"),
-        MenuItem(name: "Nissim Miojo"),
-        MenuItem(name: "Ovo Cuzido"),
-        MenuItem(name: "Ovo Estralado"),
-        MenuItem(name: "Arroz Branco"),
-        MenuItem(name: "Nissim Miojo"),
-        MenuItem(name: "Ovo Cuzido"),
-        MenuItem(name: "Ovo Estralado"),
-        MenuItem(name: "Arroz Branco"),
-        MenuItem(name: "Nissim Miojo"),
-        MenuItem(name: "Ovo Cuzido"),
-        MenuItem(name: "Ovo Estralado"),
-        MenuItem(name: "Arroz Branco"),
-        MenuItem(name: "Nissim Miojo"),
-        MenuItem(name: "Ovo Cuzido"),
-        MenuItem(name: "Ovo Estralado"),
-        MenuItem(name: "Arroz Branco"),
-        MenuItem(name: "Nissim Miojo")
-    ]
+    @State private var selectedLevel: CookingLevel
+    @State private var selectedLevelIndex: Int = 0
 
-    //Aprendiz Options
-    let verticalMenuItems2: [MenuItem] = [
-        MenuItem(name: "Item E"),
-        MenuItem(name: "Item F"),
-        MenuItem(name: "Item G"),
-        MenuItem(name: "Item H")
-    ]
-
-    //Intermediário Options
-    let verticalMenuItems3: [MenuItem] = [
-        MenuItem(name: "Item I"),
-        MenuItem(name: "Item J"),
-        MenuItem(name: "Item K"),
-        MenuItem(name: "Item L")
-    ]
-
-    //Avançado Options
-    let verticalMenuItems4: [MenuItem] = [
-        MenuItem(name: "Item n"),
-        MenuItem(name: "Item o"),
-        MenuItem(name: "Item p"),
-        MenuItem(name: "Item q")
-    ]
-
-    //Gourmet Options
-    let verticalMenuItems5: [MenuItem] = [
-        MenuItem(name: "Item r"),
-        MenuItem(name: "Item s"),
-        MenuItem(name: "Item t"),
-        MenuItem(name: "Item u")
-    ]
-
-    @State private var selectedItem: MenuItem?
-    @State private var searchText: String = ""
 
     init() {
-        _selectedItem = State(initialValue: horizontalMenuItems[0])
+        _selectedLevel = State(initialValue: cookingLevels[0])
 
-//        for familyName in UIFont.familyNames {
-//            print(familyName)
-//
-//            for fontName in UIFont.fontNames(forFamilyName: familyName) {
-//                print("-- \(fontName)")
-//            }
-//        }
     }
 
     var body: some View {
@@ -96,44 +108,38 @@ struct HomeView: View {
 
             VStack {
 
-                ScrollView(.horizontal, showsIndicators: false) {
 
-                    HStack {
-                        ForEach(horizontalMenuItems) { item in
-                            Button(action: {
-                                self.selectedItem = item
-                            }) {
-                                Text(item.name)
-                                    .frame(minWidth: 110, maxWidth: 110, minHeight: 15)
-                                    .padding()
-                                    .background(self.selectedItem == item ? Color.gray : Color.blue)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(8)
-                            }
-                        }
-                    }
-                    .padding()
-                }
-                .border(Color.blue)
+                CustomSegmentedControl(selectedSegment: $selectedLevelIndex, labels: [
+                    ("Simples", "OVO"),
+                    ("Médio", "SANDUICHE"),
+                    ("Elaborado", "PRESUNTO")
+                ])
 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack {
-                        ForEach(currentVerticalMenuItems()) { item in
-
-
-                            NavigationLink(destination: RecipeView(recipe: item)) {
-                                Text(item.name)
-                                    .frame(maxWidth: .infinity, minHeight: 15)
-                                    .padding()
-                                    .background(Color.red)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(8)
+                        ForEach(cookingLevels[selectedLevelIndex].recipes) { recipe in
+                            NavigationLink(destination: RecipeView(recipe: recipe)) {
+                                VStack(alignment: .leading) {
+                                    Text(recipe.name)
+                                    Text("Preparation time: \(recipe.preparationTime)")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                }
+                                .frame(maxWidth: .infinity, minHeight: 200)
+                                .padding()
+                                .background(
+                                    Image("cardTemplate")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                )
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
                             }
                         }
                     }
                     .padding()
                 }
-                .border(Color.green)
+
 
                 //Bypass to fix the background coolor of toolbar .bottombar
                 HStack {
@@ -142,7 +148,6 @@ struct HomeView: View {
                 .background(Color(.systemGray6))
             }
         }
-        .border(Color.yellow)
         .navigationBarBackButtonHidden()
         .toolbarBackground(Color(.systemGray6), for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
@@ -155,11 +160,11 @@ struct HomeView: View {
 
             ToolbarItemGroup(placement: .navigationBarTrailing) {
 
-                Button(action: {
-
-                } ) {
-                    Image(systemName: "gearshape")
-                }
+//                Button(action: {
+//
+//                } ) {
+//                    Image(systemName: "gearshape")
+//                }
             }
 
 
@@ -169,21 +174,6 @@ struct HomeView: View {
 
     }
 
-    func currentVerticalMenuItems() -> [MenuItem] {
-        if selectedItem == horizontalMenuItems[0] {
-            return verticalMenuItems
-        } else if selectedItem == horizontalMenuItems[1] {
-            return verticalMenuItems2
-        } else if selectedItem == horizontalMenuItems[2] {
-            return verticalMenuItems3
-        } else if selectedItem == horizontalMenuItems[3] {
-            return verticalMenuItems4
-        } else if selectedItem == horizontalMenuItems[4] {
-            return verticalMenuItems5
-        } else {
-            return [] // or return a default set of items
-        }
-    }
 }
 
 struct HomeView_Previews: PreviewProvider {
