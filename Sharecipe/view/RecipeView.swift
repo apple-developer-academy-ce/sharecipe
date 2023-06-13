@@ -10,7 +10,11 @@ struct RecipeView: View {
         @State private var startTime: Date? = nil
 
         @State private var activity: Activity<TimeTrackingAttributes>? = nil
-    
+
+
+        // Define the grid layout: 3 columns of flexible width.
+        let gridLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
+
     var body: some View {
         VStack(spacing: 0) {
             Image("recipeTemplate")
@@ -100,16 +104,16 @@ struct RecipeView: View {
                 }
                 .padding(.bottom,5)
 
-                HStack {
-                    VStack {
-                        Text("01 - Panela")
+                LazyVGrid(columns: gridLayout, spacing: 20) {
+                    ForEach(recipe.tools, id: \.self) { tool in
+                        Text(tool)
                             .multilineTextAlignment(.center)
                             .font(.subheadline)
+                            .frame(maxWidth: .infinity)
                     }
-                    .frame(maxWidth: .infinity)
+                }
+                .padding(.bottom,5)
 
-
-                }.padding(.bottom,5)
 
                 HStack {
                     VStack {
@@ -120,30 +124,14 @@ struct RecipeView: View {
                 }
                 .padding(.bottom,5)
 
-                HStack {
-                    VStack {
-                        Text("01 - Ovo de Galinha")
+                LazyVGrid(columns: gridLayout, spacing: 20) {
+                    ForEach(recipe.ingredients, id: \.self) { ingredients in
+                        Text(ingredients)
                             .multilineTextAlignment(.center)
                             .font(.subheadline)
+                            .frame(maxWidth: .infinity)
                     }
-                    .frame(maxWidth: .infinity)
-
-                    VStack {
-                        Text("300ml de Água")
-                            .multilineTextAlignment(.center)
-                            .font(.subheadline)
-                    }
-                    .frame(maxWidth: .infinity)
-
-                    VStack {
-                        Text("01 - Colher de Chá de Sal de Cozinha")
-                            .multilineTextAlignment(.center)
-                            .font(.subheadline)
-                    }
-                    .frame(maxWidth: .infinity)
-
                 }
-                .padding(.trailing,10)
                 .padding(.bottom,5)
 
                 HStack {
@@ -156,21 +144,14 @@ struct RecipeView: View {
                 .padding(.bottom,10)
 
                 VStack(alignment: .leading) {
-
-                    Text("1. Coloque ovo na água")
-                        .font(.subheadline)
-                        .padding(.leading,10)
-
-                    Text("2. Ligue o fogo da panela e deixe-a até a água começar a ferver.")
-                        .font(.subheadline)
-                        .padding(.leading,10)
-
-                    Text("3. Aguarde 10 minutos até que seu ovo esteja pronto para consumo")
-                        .font(.subheadline)
-                        .padding(.leading,10)
-
+                    ForEach(recipe.preparationInstructions, id: \.self) { preparationInstructions in
+                        Text(preparationInstructions)
+                            .font(.subheadline)
+                            .padding(.leading,10)
+                    }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
+
                 VStack {
                     Button {
                         isTrackingTime.toggle()
@@ -202,7 +183,7 @@ struct RecipeView: View {
                             .frame(width: 200, height: 40)
                             .background(Rectangle().fill(isTrackingTime ? .red : .green))
                             .cornerRadius(10)  // Aqui você pode ajustar o valor para o raio que você deseja
-                    }
+                    }.padding(.top,10)
 
                 }
 

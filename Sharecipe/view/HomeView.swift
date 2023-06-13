@@ -7,11 +7,15 @@ struct Recipe: Identifiable, Equatable {
     let image: String
     let level: String
     let portion: String
+    let tools: [String]
+    let ingredients: [String]
+    let preparationInstructions: [String]
 
     static func == (lhs: Recipe, rhs: Recipe) -> Bool {
         return lhs.id == rhs.id
     }
 }
+
 
 struct CookingLevel: Identifiable, Equatable {
     let id = UUID()
