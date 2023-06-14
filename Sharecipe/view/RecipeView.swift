@@ -17,179 +17,225 @@ struct RecipeView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Image("recipeTemplate")
-                .resizable()
-                .scaledToFit()
-                .frame(maxWidth: .infinity)
 
-            Text(recipe.name)
-                .font(.title)
+            //Recipe Image and Title
+            Group {
+                Image("recipeTemplate")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: .infinity)
 
-                .padding()
-
-            Divider()
+                Text(recipe.name)
+                    .font(.title)
+            }
 
             ScrollView {
-                HStack {
-                    VStack {
-                        Image("PRATO") // replace with your icon
-                            .resizable()
-                            .frame(width: 40, height: 40)
 
+                //Resumo da Receita
+                Group {
+
+                    HStack {
+                        VStack {
+                            Image("PRATO") // replace with your icon
+                                .resizable()
+                                .frame(width: 40, height: 40)
+
+                        }
+                        .frame(maxWidth: .infinity)
+
+                        VStack {
+                            Image("TIGELA") // replace with your icon
+                                .resizable()
+                                .frame(width: 40, height: 40)
+
+                        }
+                        .frame(maxWidth: .infinity)
+
+                        VStack {
+                            Image("CHAPEU") // replace with your icon
+                                .resizable()
+                                .frame(width: 40, height: 40)
+
+                        }
+                        .frame(maxWidth: .infinity)
                     }
-                    .frame(maxWidth: .infinity)
+                    .padding(.top,10)
 
-                    VStack {
-                        Image("TIGELA") // replace with your icon
-                            .resizable()
-                            .frame(width: 40, height: 40)
+                    HStack {
+                        VStack {
+                            Text("Preparo")
+                                .multilineTextAlignment(.center)
+                                .font(.subheadline)
+                            Text(recipe.preparationTime)
+                                .multilineTextAlignment(.center)
+                                .font(.subheadline)
+                                .bold()
+                        }
+                        .frame(maxWidth: .infinity)
+                        VStack {
+                            Text("Dificuldade")
+                                .multilineTextAlignment(.center)
+                                .font(.subheadline)
 
+                            Text(recipe.level)
+                                .font(.subheadline)
+                                .multilineTextAlignment(.center)
+                                .bold()
+                        }
+                        .frame(maxWidth: .infinity)
+                        VStack {
+                            Text("Rendimento")
+                                .multilineTextAlignment(.center)
+                                .font(.subheadline)
+
+                            Text(recipe.portion)
+                                .multilineTextAlignment(.center)
+                                .font(.subheadline)
+                                .bold()
+
+                        }
+                        .frame(maxWidth: .infinity)
                     }
-                    .frame(maxWidth: .infinity)
+                    .padding(.bottom,5)
 
-                    VStack {
-                        Image("CHAPEU") // replace with your icon
-                            .resizable()
-                            .frame(width: 40, height: 40)
-
-                    }
-                    .frame(maxWidth: .infinity)
                 }
-                .padding(.top,10)
-                HStack {
-                    VStack {
-                        Text("Preparo")
-                            .multilineTextAlignment(.center)
-                            .font(.subheadline)
-                        Text(recipe.preparationTime)
-                            .multilineTextAlignment(.center)
-                            .font(.subheadline)
-                            .bold()
-                    }
-                    .frame(maxWidth: .infinity)
-                    VStack {
-                        Text("Dificuldade")
-                            .multilineTextAlignment(.center)
-                            .font(.subheadline)
-
-                        Text(recipe.level)
-                            .font(.subheadline)
-                            .multilineTextAlignment(.center)
-                            .bold()
-                    }
-                    .frame(maxWidth: .infinity)
-                    VStack {
-                        Text("Rendimento")
-                            .multilineTextAlignment(.center)
-                            .font(.subheadline)
-
-                        Text(recipe.portion)
-                            .multilineTextAlignment(.center)
-                            .font(.subheadline)
-                            .bold()
-
-                    }
-                    .frame(maxWidth: .infinity)
-                }
-                .padding(.bottom,5)
 
                 Divider()
 
-                HStack {
-                    VStack {
-                        Text("Utensílios")
-                            .bold()
-                    }
-                    .frame(maxWidth: .infinity)
-                }
-                .padding(.bottom,5)
-
-                LazyVGrid(columns: gridLayout, spacing: 20) {
-                    ForEach(recipe.tools, id: \.self) { tool in
-                        Text(tool)
-                            .multilineTextAlignment(.center)
-                            .font(.subheadline)
-                            .frame(maxWidth: .infinity)
-                    }
-                }
-                .padding(.bottom,5)
-
-
-                HStack {
-                    VStack {
-                        Text("Ingredientes")
-                            .bold()
-                    }
-                    .frame(maxWidth: .infinity)
-                }
-                .padding(.bottom,5)
-
-                LazyVGrid(columns: gridLayout, spacing: 20) {
-                    ForEach(recipe.ingredients, id: \.self) { ingredients in
-                        Text(ingredients)
-                            .multilineTextAlignment(.center)
-                            .font(.subheadline)
-                            .frame(maxWidth: .infinity)
-                    }
-                }
-                .padding(.bottom,5)
-
-                HStack {
-                    VStack() {
-                        Text("Modo de Preparo")
-                            .bold()
-                    }
-                    .frame(maxWidth: .infinity)
-                }
-                .padding(.bottom,10)
-
-                VStack(alignment: .leading) {
-                    ForEach(recipe.preparationInstructions, id: \.self) { preparationInstructions in
-                        Text(preparationInstructions)
-                            .font(.subheadline)
-                            .padding(.leading,10)
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-
-                VStack {
-                    Button {
-                        isTrackingTime.toggle()
-                        if isTrackingTime {
-                            startTime = .now
-
-                            // Start Live Activity
-                            let attributes = TimeTrackingAttributes()
-                            let state = TimeTrackingAttributes.ContentState(startTime: .now)
-
-                            activity = try? Activity<TimeTrackingAttributes>.request(attributes: attributes, contentState: state, pushType: nil)
-
-                        } else {
-                            guard let startTime else {return}
-                            let state = TimeTrackingAttributes.ContentState(startTime: startTime)
-
-                            Task {
-                                await activity?.end(using: state, dismissalPolicy: .immediate)
-                            }
-
-                            self.startTime = nil
-
-
+                //Utensilios Necessários
+                Group {
+                    HStack {
+                        VStack {
+                            Text("Utensílios")
+                                .bold()
                         }
-                    } label: {
-                        Text(isTrackingTime ? "PARAR" : "INICIAR PREPARO")
-                            .fontWeight(.light)
-                            .foregroundColor(.white)
-                            .frame(width: 200, height: 40)
-                            .background(Rectangle().fill(isTrackingTime ? .red : .green))
-                            .cornerRadius(10)  // Aqui você pode ajustar o valor para o raio que você deseja
-                    }.padding(.top,10)
+                        .frame(maxWidth: .infinity)
+                    }
+                    .padding(.bottom,5)
+
+                    LazyVGrid(columns: gridLayout, spacing: 20) {
+                        ForEach(recipe.tools, id: \.self) { tool in
+                            Text(tool)
+                                .multilineTextAlignment(.center)
+                                .font(.subheadline)
+                                .frame(maxWidth: .infinity)
+                        }
+
+
+                    }
+                    .padding(.leading,5)
+                    .padding(.trailing,5)
+                    .padding(.bottom,5)
+                }
+
+                Divider()
+
+                //Ingredientes Necessários
+                Group {
+                    HStack {
+                        VStack {
+                            Text("Ingredientes")
+                                .bold()
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
+                    .padding(.bottom,5)
+
+                    LazyVGrid(columns: gridLayout, spacing: 20) {
+                        ForEach(recipe.ingredients, id: \.self) { ingredients in
+                            Text(ingredients)
+                                .multilineTextAlignment(.center)
+                                .font(.subheadline)
+                                .frame(maxWidth: .infinity)
+                        }
+                    }
+                    .padding(.bottom,5)
 
                 }
 
-            }
+                Divider()
+
+                //Modo de Preparo
+                Group {
+                    HStack {
+                        VStack() {
+                            Text("Modo de Preparo")
+                                .bold()
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
+                    .padding(.bottom,10)
+
+                    VStack(alignment: .leading) {
+                        ForEach(recipe.preparationInstructions, id: \.self) { preparationInstructions in
+                            Text(preparationInstructions)
+                                .font(.subheadline)
+                                .padding(.leading,10)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+
+                    VStack {
+                        Button {
+                            isTrackingTime.toggle()
+                            if isTrackingTime {
+                                startTime = .now
+
+                                // Start Live Activity
+                                let attributes = TimeTrackingAttributes()
+                                let state = TimeTrackingAttributes.ContentState(startTime: .now)
+
+                                activity = try? Activity<TimeTrackingAttributes>.request(attributes: attributes, contentState: state, pushType: nil)
+
+                            } else {
+                                guard let startTime else {return}
+                                let state = TimeTrackingAttributes.ContentState(startTime: startTime)
+
+                                Task {
+                                    await activity?.end(using: state, dismissalPolicy: .immediate)
+                                }
+
+                                self.startTime = nil
+
+
+                            }
+                        } label: {
+                            Text(isTrackingTime ? "PARAR" : "INICIAR PREPARO")
+                                .fontWeight(.light)
+                                .foregroundColor(.white)
+                                .frame(width: 200, height: 40)
+                                .background(Rectangle().fill(isTrackingTime ? .red : .green))
+                                .cornerRadius(20)  // Aqui você pode ajustar o valor para o raio que você deseja
+                        }.padding(.top,10)
+                    }
+                }
+            }.padding(.bottom,-10)
+
             Spacer()
+
+            //Hack to fix the background coolor of toolbar .bottombar
+            HStack {
+                Spacer()
+                Text("")
+            }
+            .background(Color(.systemGray6))
+
+
         }
         .ignoresSafeArea(.all, edges: [.top])
+        .toolbarBackground(Color(.systemGray6).opacity(0.0), for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
+        .toolbar {
+
+            ToolbarItem(placement: .principal) {
+            }
+
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+            }
+
+
+            ToolbarItemGroup(placement: .bottomBar) {
+            }
+        }
     }
 }

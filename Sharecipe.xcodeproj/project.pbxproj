@@ -336,6 +336,7 @@
 				INFOPLIST_FILE = TimeTracker_Widget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TimeTracker_Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -363,6 +364,7 @@
 				INFOPLIST_FILE = TimeTracker_Widget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TimeTracker_Widget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

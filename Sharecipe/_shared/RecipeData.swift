@@ -9,8 +9,8 @@ struct RecipeData {
                 image: "cardTemplate",
                 level: "Simples",
                 portion: "2 Porçòes",
-                tools: ["Pot", "Stove", "Bowl", "teste", "teste2", "teste3"],
-                ingredients: ["2 Eggs", "Water", "Salt", "macaxeira","piaba", "Pamonha"],
+                tools: ["Pot", "Stove", "Bowl", "testeetstestestestr", "teste2", "tesasdasdasdte3"],
+                ingredients: ["2 Eggasdasdasdass", "Water", "Salt", "masdasdasdacaxeira","pisafasdasdasdasdaba", "Pamoasdasdasdasdnha"],
                 preparationInstructions: ["1. Coloque água na panela", "2. Aqueça até ferver." , "3. Quando estiver fervendo, coloque os ovos.", "4. Cozinhe por 5 Minutos"]
             ),
             Recipe(
@@ -59,7 +59,7 @@ struct RecipeData {
                 image: "cardTemplate",
                 level: "Simples",
                 portion: "2 Porçòes",
-                tools: ["Pot", "Stove", "Bowl", "teste", "teste2", "teste3"],
+                tools: ["Pot", "Stove", "Bowl", "testetestestestest", "teste2", "teste3"],
                 ingredients: ["2 Eggs", "Water", "Salt", "macaxeira","piaba", "Pamonha"],
                 preparationInstructions: ["1. Coloque água na panela", "2. Aqueça até ferver." , "3. Quando estiver fervendo, coloque os ovos.", "4. Cozinhe por 5 Minutos"]
             ),
