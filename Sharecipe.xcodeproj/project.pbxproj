@@ -24,7 +24,6 @@
 		85366F8D2A2F710200FF327D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85366F8C2A2F710200FF327D /* LoadingView.swift */; };
 		857FF4E42A30E0890044C19D /* DeliCake.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 857FF4E32A30E0890044C19D /* DeliCake.ttf */; };
 		857FF4E62A30E37E0044C19D /* LemonJelly.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 857FF4E52A30E37D0044C19D /* LemonJelly.ttf */; };
-		85C0A55C2A30A50400477732 /* _disabled.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 85C0A55B2A30A50400477732 /* _disabled.rtf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,7 +69,6 @@
 		85366F8C2A2F710200FF327D /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = SOURCE_ROOT; };
 		857FF4E32A30E0890044C19D /* DeliCake.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DeliCake.ttf; sourceTree = "<group>"; };
 		857FF4E52A30E37D0044C19D /* LemonJelly.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = LemonJelly.ttf; sourceTree = "<group>"; };
-		85C0A55B2A30A50400477732 /* _disabled.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = _disabled.rtf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,11 +160,10 @@
 		85366F882A2F70A100FF327D /* _shared */ = {
 			isa = PBXGroup;
 			children = (
+				85C0A5602A30D93E00477732 /* _fonts */,
+				85366F7D2A2F706400FF327D /* Assets.xcassets */,
 				850CEED32A392B32004F14A9 /* RecipeData.swift */,
 				850CEE632A375640004F14A9 /* TimeTrackingAttributes.swift */,
-				85C0A5602A30D93E00477732 /* _fonts */,
-				85C0A55B2A30A50400477732 /* _disabled.rtf */,
-				85366F7D2A2F706400FF327D /* Assets.xcassets */,
 			);
 			path = _shared;
 			sourceTree = "<group>";
@@ -283,7 +280,6 @@
 				85366F812A2F706400FF327D /* Preview Assets.xcassets in Resources */,
 				85366F7E2A2F706400FF327D /* Assets.xcassets in Resources */,
 				857FF4E42A30E0890044C19D /* DeliCake.ttf in Resources */,
-				85C0A55C2A30A50400477732 /* _disabled.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

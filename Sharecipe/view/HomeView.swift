@@ -3,8 +3,9 @@ import SwiftUI
 struct Recipe: Identifiable, Equatable {
     let id = UUID()
     let name: String
+    let cardImage: String
+    let recipeImage: String
     let preparationTime: String
-    let image: String
     let level: String
     let portion: String
     let tools: [String]
@@ -45,6 +46,7 @@ struct CustomSegmentedControl: View {
                                 .frame(width: 30, height: 30)
                             Text(labels[index].0)
                                 .font(.subheadline)
+                                .foregroundColor(Color.primary)
                         }
                     }
                     .padding(10)
@@ -67,7 +69,7 @@ struct CustomUnderlineView: View {
                 HStack(alignment: .bottom, spacing: 0) {
                     ForEach(0..<labels.count) { index in
                         Rectangle()
-                            .fill(index == selectedSegment ? Color.black : Color.gray)
+                            .fill(index == selectedSegment ? Color.primary : Color.gray)
                             .frame(width: geometry.size.width / CGFloat(labels.count), height: 2)
                     }
                 }
@@ -106,7 +108,7 @@ struct HomeView: View {
                         ForEach(RecipeData.cookingLevels[selectedLevelIndex].recipes) { recipe in
                             NavigationLink(destination: RecipeView(recipe: recipe)) {
                                 ZStack(alignment: .bottomLeading) {
-                                    Image(recipe.image)
+                                    Image(recipe.cardImage)
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
                                         .cornerRadius(8)

@@ -20,7 +20,7 @@ struct RecipeView: View {
 
             //Recipe Image and Title
             Group {
-                Image("recipeTemplate")
+                Image(recipe.recipeImage)
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: .infinity)
@@ -123,10 +123,11 @@ struct RecipeView: View {
 
 
                     }
-                    .padding(.leading,5)
-                    .padding(.trailing,5)
-                    .padding(.bottom,5)
+
                 }
+                .padding(.leading,5)
+                .padding(.trailing,5)
+                .padding(.bottom,5)
 
                 Divider()
 
@@ -149,9 +150,12 @@ struct RecipeView: View {
                                 .frame(maxWidth: .infinity)
                         }
                     }
-                    .padding(.bottom,5)
+
 
                 }
+                .padding(.leading,5)
+                .padding(.trailing,5)
+                .padding(.bottom,5)
 
                 Divider()
 
@@ -209,7 +213,8 @@ struct RecipeView: View {
                         }.padding(.top,10)
                     }
                 }
-            }.padding(.bottom,-10)
+            }
+            .padding(.bottom,-10)
 
             Spacer()
 
