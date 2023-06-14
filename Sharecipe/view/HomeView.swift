@@ -115,14 +115,14 @@ struct HomeView: View {
 
                                     VStack(alignment: .leading) {
                                         Text(recipe.name)
-                                        Text("Preparation time: \(recipe.preparationTime)")
+                                        Text("Tempo de Preparo: \(recipe.preparationTime)")
                                             .font(.subheadline)
                                             .foregroundColor(.gray)
                                     }
                                     //.frame(maxWidth: .infinity, minHeight: 10)
 
                                     .padding()
-                                    .background(Color.black.opacity(0.3))
+                                    .background(Color.black.opacity(0.5))
                                     .foregroundColor(.white)
                                     .cornerRadius(8)
                                 }

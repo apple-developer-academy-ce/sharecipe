@@ -14,80 +14,13 @@ struct RecipeData {
                 ingredients: ["2 Eggasdasdasdass", "Water", "Salt", "masdasdasdacaxeira","pisafasdasdasdasdaba", "Pamoasdasdasdasdnha"],
                 preparationInstructions: ["1. Coloque água na panela", "2. Aqueça até ferver." , "3. Quando estiver fervendo, coloque os ovos.", "4. Cozinhe por 5 Minutos"]
             ),
-            Recipe(
-                name: "Ovo Cozido",
-                cardImage: "cardImage",
-                recipeImage: "recipeImage",
-                preparationTime: "5 minutes",
-                level: "Simples",
-                portion: "2 Porçòes",
-                tools: ["Pot", "Stove", "Bowl", "testeetstestestestr", "teste2", "tesasdasdasdte3"],
-                ingredients: ["2 Eggasdasdasdass", "Water", "Salt", "masdasdasdacaxeira","pisafasdasdasdasdaba", "Pamoasdasdasdasdnha"],
-                preparationInstructions: ["1. Coloque água na panela", "2. Aqueça até ferver." , "3. Quando estiver fervendo, coloque os ovos.", "4. Cozinhe por 5 Minutos"]
-            ),
-            Recipe(
-                name: "Ovo Cozido",
-                cardImage: "cardImage",
-                recipeImage: "recipeImage",
-                preparationTime: "5 minutes",
-                level: "Simples",
-                portion: "2 Porçòes",
-                tools: ["Pot", "Stove", "Bowl", "testeetstestestestr", "teste2", "tesasdasdasdte3"],
-                ingredients: ["2 Eggasdasdasdass", "Water", "Salt", "masdasdasdacaxeira","pisafasdasdasdasdaba", "Pamoasdasdasdasdnha"],
-                preparationInstructions: ["1. Coloque água na panela", "2. Aqueça até ferver." , "3. Quando estiver fervendo, coloque os ovos.", "4. Cozinhe por 5 Minutos"]
-            ),
-            Recipe(
-                name: "Ovo Cozido",
-                cardImage: "cardImage",
-                recipeImage: "recipeImage",
-                preparationTime: "5 minutes",
-                level: "Simples",
-                portion: "2 Porçòes",
-                tools: ["Pot", "Stove", "Bowl", "testeetstestestestr", "teste2", "tesasdasdasdte3"],
-                ingredients: ["2 Eggasdasdasdass", "Water", "Salt", "masdasdasdacaxeira","pisafasdasdasdasdaba", "Pamoasdasdasdasdnha"],
-                preparationInstructions: ["1. Coloque água na panela", "2. Aqueça até ferver." , "3. Quando estiver fervendo, coloque os ovos.", "4. Cozinhe por 5 Minutos"]
-            ),
-            Recipe(
-                name: "Ovo Cozido",
-                cardImage: "cardImage",
-                recipeImage: "recipeImage",
-                preparationTime: "5 minutes",
-                level: "Simples",
-                portion: "2 Porçòes",
-                tools: ["Pot", "Stove", "Bowl", "testeetstestestestr", "teste2", "tesasdasdasdte3"],
-                ingredients: ["2 Eggasdasdasdass", "Water", "Salt", "masdasdasdacaxeira","pisafasdasdasdasdaba", "Pamoasdasdasdasdnha"],
-                preparationInstructions: ["1. Coloque água na panela", "2. Aqueça até ferver." , "3. Quando estiver fervendo, coloque os ovos.", "4. Cozinhe por 5 Minutos"]
-            ),
 
             // ...other recipes
         ]),
         CookingLevel(name: "Médio", recipes: [
-            Recipe(
-                name: "Ovo Cozido",
-                cardImage: "cardImage",
-                recipeImage: "recipeImage",
-                preparationTime: "5 minutes",
-                level: "Simples",
-                portion: "2 Porçòes",
-                tools: ["Pot", "Stove", "Bowl", "testeetstestestestr", "teste2", "tesasdasdasdte3"],
-                ingredients: ["2 Eggasdasdasdass", "Water", "Salt", "masdasdasdacaxeira","pisafasdasdasdasdaba", "Pamoasdasdasdasdnha"],
-                preparationInstructions: ["1. Coloque água na panela", "2. Aqueça até ferver." , "3. Quando estiver fervendo, coloque os ovos.", "4. Cozinhe por 5 Minutos"]
-            ),
             // ...other recipes
         ]),
         CookingLevel(name: "Elaborado", recipes: [
-            Recipe(
-                name: "Ovo Cozido",
-                cardImage: "cardImage",
-                recipeImage: "recipeImage",
-                preparationTime: "5 minutes",
-                level: "Simples",
-                portion: "2 Porçòes",
-                tools: ["Pot", "Stove", "Bowl", "testeetstestestestr", "teste2", "tesasdasdasdte3"],
-                ingredients: ["2 Eggasdasdasdass", "Water", "Salt", "masdasdasdacaxeira","pisafasdasdasdasdaba", "Pamoasdasdasdasdnha"],
-                preparationInstructions: ["1. Coloque água na panela", "2. Aqueça até ferver." , "3. Quando estiver fervendo, coloque os ovos.", "4. Cozinhe por 5 Minutos"]
-            ),
-
             // ...other recipes
         ]),
     ]
