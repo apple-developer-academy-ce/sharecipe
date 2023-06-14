@@ -24,6 +24,9 @@
 		85366F8D2A2F710200FF327D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85366F8C2A2F710200FF327D /* LoadingView.swift */; };
 		857FF4E42A30E0890044C19D /* DeliCake.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 857FF4E32A30E0890044C19D /* DeliCake.ttf */; };
 		857FF4E62A30E37E0044C19D /* LemonJelly.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 857FF4E52A30E37D0044C19D /* LemonJelly.ttf */; };
+		85B9FA592A3A1D480043F25F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852080A02A2F717400DB9ADC /* HomeView.swift */; };
+		85B9FA5A2A3A1D950043F25F /* RecipeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850CEED32A392B32004F14A9 /* RecipeData.swift */; };
+		85B9FA5B2A3A1DA20043F25F /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852080A22A2F718900DB9ADC /* RecipeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -290,7 +293,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85B9FA5B2A3A1DA20043F25F /* RecipeView.swift in Sources */,
 				850CEEC52A389D30004F14A9 /* TimeTracker_WidgetBundle.swift in Sources */,
+				85B9FA592A3A1D480043F25F /* HomeView.swift in Sources */,
+				85B9FA5A2A3A1D950043F25F /* RecipeData.swift in Sources */,
 				850CEED22A38A26B004F14A9 /* TimeTrackingAttributes.swift in Sources */,
 				850CEEC72A389D30004F14A9 /* TimeTracker_Widget.swift in Sources */,
 			);

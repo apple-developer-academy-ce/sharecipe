@@ -187,13 +187,13 @@ struct RecipeView: View {
 
                                 // Start Live Activity
                                 let attributes = TimeTrackingAttributes()
-                                let state = TimeTrackingAttributes.ContentState(startTime: .now)
+                                let state = TimeTrackingAttributes.ContentState(startTime: .now, recipe: recipe)
 
                                 activity = try? Activity<TimeTrackingAttributes>.request(attributes: attributes, contentState: state, pushType: nil)
 
                             } else {
                                 guard let startTime else {return}
-                                let state = TimeTrackingAttributes.ContentState(startTime: startTime)
+                                let state = TimeTrackingAttributes.ContentState(startTime: startTime, recipe: recipe)
 
                                 Task {
                                     await activity?.end(using: state, dismissalPolicy: .immediate)

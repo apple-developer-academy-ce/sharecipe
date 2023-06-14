@@ -34,5 +34,6 @@ struct TimeTrackingWidgetView: View {
 
     var body: some View {
         Text(context.state.startTime, style: .relative)
+        Text(context.state.recipe.name)
     }
 }

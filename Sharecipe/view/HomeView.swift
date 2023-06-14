@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct Recipe: Identifiable, Equatable {
+struct Recipe: Identifiable, Equatable, Codable, Hashable {
     let id = UUID()
     let name: String
     let cardImage: String
@@ -18,7 +18,7 @@ struct Recipe: Identifiable, Equatable {
 }
 
 
-struct CookingLevel: Identifiable, Equatable {
+struct CookingLevel: Identifiable, Equatable, Codable, Hashable {
     let id = UUID()
     let name: String
     let recipes: [Recipe]
