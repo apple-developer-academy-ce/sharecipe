@@ -26,6 +26,8 @@
 		857FF4E62A30E37E0044C19D /* LemonJelly.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 857FF4E52A30E37D0044C19D /* LemonJelly.ttf */; };
 		85893F112A3A9338009D4B7E /* song.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85893F102A3A9338009D4B7E /* song.mp3 */; };
 		85893F122A3A937B009D4B7E /* song.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 85893F102A3A9338009D4B7E /* song.mp3 */; };
+		85893F162A3B67AA009D4B7E /* AudioPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85893F152A3B67AA009D4B7E /* AudioPlayerManager.swift */; };
+		85893F172A3B67AA009D4B7E /* AudioPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85893F152A3B67AA009D4B7E /* AudioPlayerManager.swift */; };
 		85B9FA592A3A1D480043F25F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852080A02A2F717400DB9ADC /* HomeView.swift */; };
 		85B9FA5A2A3A1D950043F25F /* RecipeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850CEED32A392B32004F14A9 /* RecipeData.swift */; };
 		85B9FA5B2A3A1DA20043F25F /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852080A22A2F718900DB9ADC /* RecipeView.swift */; };
@@ -75,6 +77,7 @@
 		857FF4E32A30E0890044C19D /* DeliCake.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DeliCake.ttf; sourceTree = "<group>"; };
 		857FF4E52A30E37D0044C19D /* LemonJelly.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = LemonJelly.ttf; sourceTree = "<group>"; };
 		85893F102A3A9338009D4B7E /* song.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = song.mp3; sourceTree = "<group>"; };
+		85893F152A3B67AA009D4B7E /* AudioPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				85366F792A2F706300FF327D /* SharecipeApp.swift */,
+				85893F152A3B67AA009D4B7E /* AudioPlayerManager.swift */,
 			);
 			path = _application;
 			sourceTree = "<group>";
@@ -312,6 +316,7 @@
 				85B9FA592A3A1D480043F25F /* HomeView.swift in Sources */,
 				85B9FA5A2A3A1D950043F25F /* RecipeData.swift in Sources */,
 				850CEED22A38A26B004F14A9 /* TimeTrackingAttributes.swift in Sources */,
+				85893F172A3B67AA009D4B7E /* AudioPlayerManager.swift in Sources */,
 				850CEEC72A389D30004F14A9 /* TimeTracker_Widget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -325,6 +330,7 @@
 				852080A32A2F718900DB9ADC /* RecipeView.swift in Sources */,
 				850CEED42A392B32004F14A9 /* RecipeData.swift in Sources */,
 				85366F8D2A2F710200FF327D /* LoadingView.swift in Sources */,
+				85893F162A3B67AA009D4B7E /* AudioPlayerManager.swift in Sources */,
 				850CEE642A375640004F14A9 /* TimeTrackingAttributes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,7 +15,10 @@ struct RecipeView: View {
     // Define the grid layout: 3 columns of flexible width.
     let gridLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
 
-    @State private var audioPlayer: AVAudioPlayer?
+    //@State private var audioPlayer: AVAudioPlayer?
+
+    @EnvironmentObject var audioPlayerManager: AudioPlayerManager
+
 
 
     var body: some View {
@@ -188,30 +191,27 @@ struct RecipeView: View {
                             if isTrackingTime {
                                 startTime = .now
 
+                                print ("Audio Started")
+
                                 // Start Live Activity
                                 let attributes = TimeTrackingAttributes()
                                 let state = TimeTrackingAttributes.ContentState(recipe: recipe)
                                 activity = try? Activity<TimeTrackingAttributes>.request(attributes: attributes, contentState: state, pushType: nil)
 
                                 // Start a timer based on recipe.preparationTime (converted to seconds)
-                                let deadline = DispatchTime.now() + .seconds(recipe.preparationTime * 60)
-                                
+                                let deadline = DispatchTime.now() + .seconds(recipe.preparationTime * 5)
+
                                 DispatchQueue.main.asyncAfter(deadline: deadline) {
                                     if isTrackingTime {
                                         if let sound = Bundle.main.url(forResource: "song", withExtension: "mp3") {
-                                            do {
-                                                audioPlayer = try AVAudioPlayer(contentsOf: sound)
-                                                audioPlayer?.play()
-                                                print("Audio Played")
-                                            } catch {
-                                                print("Failed to play sound: \(error)")
-                                            }
+                                            self.audioPlayerManager.playSound(sound: sound)
                                         }
                                     }
                                 }
                             } else {
-                                audioPlayer?.stop()
-                                audioPlayer = nil
+                                print ("Audio Stopped")
+
+                                self.audioPlayerManager.stopSound()
 
                                 let state = TimeTrackingAttributes.ContentState(recipe: recipe)
                                 Task {
@@ -227,6 +227,7 @@ struct RecipeView: View {
                                 .background(Rectangle().fill(isTrackingTime ? .red : .green))
                                 .cornerRadius(20)
                         }.padding(.top,10)
+
                     }
                 }
             }
