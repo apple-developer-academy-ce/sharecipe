@@ -5,7 +5,7 @@ struct Recipe: Identifiable, Equatable, Codable, Hashable {
     let name: String
     let cardImage: String
     let recipeImage: String
-    let preparationTime: String
+    let preparationTime: Int
     let level: String
     let portion: String
     let tools: [String]
@@ -78,6 +78,7 @@ struct CustomUnderlineView: View {
     }
 }
 
+
 struct HomeView: View {
 
     @State private var selectedLevel: CookingLevel
@@ -134,8 +135,6 @@ struct HomeView: View {
                     }
                     .padding()
                 }
-
-
 
                 //Bypass to fix the background coolor of toolbar .bottombar
                 HStack {

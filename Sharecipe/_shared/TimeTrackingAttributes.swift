@@ -13,7 +13,7 @@ struct TimeTrackingAttributes: ActivityAttributes {
     public typealias TimeTrackingStatus = ContentState
 
     public struct ContentState: Codable, Hashable {
-        var startTime: Date
+        //var startTime: Date
         var recipe: Recipe
     }
 }

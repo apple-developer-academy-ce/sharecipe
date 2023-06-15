@@ -66,7 +66,7 @@ struct RecipeView: View {
                             Text("Preparo")
                                 .multilineTextAlignment(.center)
                                 .font(.subheadline)
-                            Text(recipe.preparationTime)
+                            Text("\(recipe.preparationTime)")
                                 .multilineTextAlignment(.center)
                                 .font(.subheadline)
                                 .bold()
@@ -187,13 +187,15 @@ struct RecipeView: View {
 
                                 // Start Live Activity
                                 let attributes = TimeTrackingAttributes()
-                                let state = TimeTrackingAttributes.ContentState(startTime: .now, recipe: recipe)
+                                //let state = TimeTrackingAttributes.ContentState(startTime: .now, recipe: recipe)
+                                let state = TimeTrackingAttributes.ContentState(recipe: recipe)
 
                                 activity = try? Activity<TimeTrackingAttributes>.request(attributes: attributes, contentState: state, pushType: nil)
 
                             } else {
-                                guard let startTime else {return}
-                                let state = TimeTrackingAttributes.ContentState(startTime: startTime, recipe: recipe)
+                                //guard let startTime else {return}
+                                //let state = TimeTrackingAttributes.ContentState(startTime: startTime, recipe: recipe)
+                                let state = TimeTrackingAttributes.ContentState(recipe: recipe)
 
                                 Task {
                                     await activity?.end(using: state, dismissalPolicy: .immediate)

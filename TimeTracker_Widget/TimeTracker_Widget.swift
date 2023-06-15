@@ -29,11 +29,29 @@ struct TimeTracker_Widget: Widget {
     }
 }
 
+
 struct TimeTrackingWidgetView: View {
     let context: ActivityViewContext<TimeTrackingAttributes>
 
+    var targetTime: Date {
+        let preparationTime = context.state.recipe.preparationTime
+        return Calendar.current.date(byAdding: .minute, value: preparationTime, to: Date())!
+    }
+
     var body: some View {
-        Text(context.state.startTime, style: .relative)
-        Text(context.state.recipe.name)
+        VStack(alignment: .leading) {
+            Text("Sharecipe")
+                .font(.title)
+            Text("Seu preparo estará pronto em \(targetTime)")
+                .font(.subheadline)
+                .padding(.bottom,10)
+        }
     }
 }
+
+
+
+
+
+
+
