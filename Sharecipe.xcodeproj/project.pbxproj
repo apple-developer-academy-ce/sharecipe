@@ -34,6 +34,8 @@
 		85893F1D2A3B8257009D4B7E /* ActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85893F1B2A3B8257009D4B7E /* ActivityManager.swift */; };
 		85893F1F2A3B8691009D4B7E /* WorkingOnRecipeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85893F1E2A3B8691009D4B7E /* WorkingOnRecipeManager.swift */; };
 		85893F202A3B8691009D4B7E /* WorkingOnRecipeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85893F1E2A3B8691009D4B7E /* WorkingOnRecipeManager.swift */; };
+		85893F222A3B8CC6009D4B7E /* HVCocktailRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85893F212A3B8CC6009D4B7E /* HVCocktailRegular.ttf */; };
+		85893F232A3B8CC6009D4B7E /* HVCocktailRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85893F212A3B8CC6009D4B7E /* HVCocktailRegular.ttf */; };
 		85B9FA592A3A1D480043F25F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852080A02A2F717400DB9ADC /* HomeView.swift */; };
 		85B9FA5A2A3A1D950043F25F /* RecipeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850CEED32A392B32004F14A9 /* RecipeData.swift */; };
 		85B9FA5B2A3A1DA20043F25F /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852080A22A2F718900DB9ADC /* RecipeView.swift */; };
@@ -87,6 +89,7 @@
 		85893F182A3B718B009D4B7E /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
 		85893F1B2A3B8257009D4B7E /* ActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityManager.swift; sourceTree = "<group>"; };
 		85893F1E2A3B8691009D4B7E /* WorkingOnRecipeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingOnRecipeManager.swift; sourceTree = "<group>"; };
+		85893F212A3B8CC6009D4B7E /* HVCocktailRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HVCocktailRegular.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +215,7 @@
 		85C0A5602A30D93E00477732 /* _fonts */ = {
 			isa = PBXGroup;
 			children = (
+				85893F212A3B8CC6009D4B7E /* HVCocktailRegular.ttf */,
 				857FF4E52A30E37D0044C19D /* LemonJelly.ttf */,
 				857FF4E32A30E0890044C19D /* DeliCake.ttf */,
 			);
@@ -301,6 +305,7 @@
 			files = (
 				85893F122A3A937B009D4B7E /* song.mp3 in Resources */,
 				850CEEC92A389D31004F14A9 /* Assets.xcassets in Resources */,
+				85893F232A3B8CC6009D4B7E /* HVCocktailRegular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +318,7 @@
 				85366F7E2A2F706400FF327D /* Assets.xcassets in Resources */,
 				85893F112A3A9338009D4B7E /* song.mp3 in Resources */,
 				857FF4E42A30E0890044C19D /* DeliCake.ttf in Resources */,
+				85893F222A3B8CC6009D4B7E /* HVCocktailRegular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
