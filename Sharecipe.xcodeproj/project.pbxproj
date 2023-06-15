@@ -30,6 +30,10 @@
 		85893F172A3B67AA009D4B7E /* AudioPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85893F152A3B67AA009D4B7E /* AudioPlayerManager.swift */; };
 		85893F192A3B718B009D4B7E /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85893F182A3B718B009D4B7E /* LocalNotificationManager.swift */; };
 		85893F1A2A3B718B009D4B7E /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85893F182A3B718B009D4B7E /* LocalNotificationManager.swift */; };
+		85893F1C2A3B8257009D4B7E /* ActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85893F1B2A3B8257009D4B7E /* ActivityManager.swift */; };
+		85893F1D2A3B8257009D4B7E /* ActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85893F1B2A3B8257009D4B7E /* ActivityManager.swift */; };
+		85893F1F2A3B8691009D4B7E /* WorkingOnRecipeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85893F1E2A3B8691009D4B7E /* WorkingOnRecipeManager.swift */; };
+		85893F202A3B8691009D4B7E /* WorkingOnRecipeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85893F1E2A3B8691009D4B7E /* WorkingOnRecipeManager.swift */; };
 		85B9FA592A3A1D480043F25F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852080A02A2F717400DB9ADC /* HomeView.swift */; };
 		85B9FA5A2A3A1D950043F25F /* RecipeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850CEED32A392B32004F14A9 /* RecipeData.swift */; };
 		85B9FA5B2A3A1DA20043F25F /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852080A22A2F718900DB9ADC /* RecipeView.swift */; };
@@ -81,6 +85,8 @@
 		85893F102A3A9338009D4B7E /* song.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = song.mp3; sourceTree = "<group>"; };
 		85893F152A3B67AA009D4B7E /* AudioPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerManager.swift; sourceTree = "<group>"; };
 		85893F182A3B718B009D4B7E /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
+		85893F1B2A3B8257009D4B7E /* ActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityManager.swift; sourceTree = "<group>"; };
+		85893F1E2A3B8691009D4B7E /* WorkingOnRecipeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingOnRecipeManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +173,8 @@
 				85366F792A2F706300FF327D /* SharecipeApp.swift */,
 				85893F152A3B67AA009D4B7E /* AudioPlayerManager.swift */,
 				85893F182A3B718B009D4B7E /* LocalNotificationManager.swift */,
+				85893F1B2A3B8257009D4B7E /* ActivityManager.swift */,
+				85893F1E2A3B8691009D4B7E /* WorkingOnRecipeManager.swift */,
 			);
 			path = _application;
 			sourceTree = "<group>";
@@ -317,6 +325,8 @@
 			files = (
 				85B9FA5B2A3A1DA20043F25F /* RecipeView.swift in Sources */,
 				850CEEC52A389D30004F14A9 /* TimeTracker_WidgetBundle.swift in Sources */,
+				85893F202A3B8691009D4B7E /* WorkingOnRecipeManager.swift in Sources */,
+				85893F1D2A3B8257009D4B7E /* ActivityManager.swift in Sources */,
 				85B9FA592A3A1D480043F25F /* HomeView.swift in Sources */,
 				85B9FA5A2A3A1D950043F25F /* RecipeData.swift in Sources */,
 				850CEED22A38A26B004F14A9 /* TimeTrackingAttributes.swift in Sources */,
@@ -332,6 +342,8 @@
 			files = (
 				852080A12A2F717400DB9ADC /* HomeView.swift in Sources */,
 				85366F7A2A2F706300FF327D /* SharecipeApp.swift in Sources */,
+				85893F1F2A3B8691009D4B7E /* WorkingOnRecipeManager.swift in Sources */,
+				85893F1C2A3B8257009D4B7E /* ActivityManager.swift in Sources */,
 				852080A32A2F718900DB9ADC /* RecipeView.swift in Sources */,
 				850CEED42A392B32004F14A9 /* RecipeData.swift in Sources */,
 				85366F8D2A2F710200FF327D /* LoadingView.swift in Sources */,

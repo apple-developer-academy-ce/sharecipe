@@ -4,6 +4,8 @@ import AVFoundation
 @main
 struct SharecipeApp: App {
     @StateObject var audioPlayerManager = AudioPlayerManager()
+    @StateObject var workingOnRecipeManager = WorkingOnRecipeManager() //Calls Modules
+
 
     init() {
         LocalNotificationManager.shared.requestAuthorization()
@@ -15,6 +17,7 @@ struct SharecipeApp: App {
                 LoadingView()
             }
             .environmentObject(audioPlayerManager)
+            .environmentObject(workingOnRecipeManager)
         }
     }
 }

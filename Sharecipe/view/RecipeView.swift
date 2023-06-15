@@ -7,16 +7,15 @@ import AVFoundation
 struct RecipeView: View {
     var recipe: Recipe
 
-    @State private var isTrackingTime: Bool = false
+    //@State private var isTrackingTime: Bool = false
     @State private var startTime: Date? = nil
-
     @State private var activity: Activity<TimeTrackingAttributes>? = nil
 
     // Define the grid layout: 3 columns of flexible width.
     let gridLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
 
-    //@State private var audioPlayer: AVAudioPlayer?
-
+    //Modular
+    @EnvironmentObject var workingOnRecipeManager: WorkingOnRecipeManager //Observes a Envrioment Object (Global Var)
     @EnvironmentObject var audioPlayerManager: AudioPlayerManager
 
 
@@ -187,8 +186,8 @@ struct RecipeView: View {
 
                     VStack {
                         Button {
-                            isTrackingTime.toggle()
-                            if isTrackingTime {
+                            workingOnRecipeManager.isWorkingOnRecipe.toggle()
+                            if workingOnRecipeManager.isWorkingOnRecipe {
                                 startTime = .now
 
                                 print ("Audio Started")
@@ -198,11 +197,14 @@ struct RecipeView: View {
                                 let state = TimeTrackingAttributes.ContentState(recipe: recipe)
                                 activity = try? Activity<TimeTrackingAttributes>.request(attributes: attributes, contentState: state, pushType: nil)
 
+                                ActivityManager.shared.activity = activity
+                                ActivityManager.shared.recipe = recipe
+
                                 // Start a timer based on recipe.preparationTime (converted to seconds)
                                 let deadline = DispatchTime.now() + .seconds(recipe.preparationTime * 5)
 
                                 DispatchQueue.main.asyncAfter(deadline: deadline) {
-                                    if isTrackingTime {
+                                    if workingOnRecipeManager.isWorkingOnRecipe {
                                         if let sound = Bundle.main.url(forResource: "song", withExtension: "mp3") {
                                             self.audioPlayerManager.playSound(sound: sound)
                                         }
@@ -218,13 +220,15 @@ struct RecipeView: View {
                                     await activity?.end(using: state, dismissalPolicy: .immediate)
                                 }
                                 self.startTime = nil
+
+                                ActivityManager.shared.endActivity()
                             }
                         } label: {
-                            Text(isTrackingTime ? "PARAR" : "INICIAR PREPARO")
+                            Text(workingOnRecipeManager.isWorkingOnRecipe ? "PARAR" : "INICIAR PREPARO")
                                 .fontWeight(.light)
                                 .foregroundColor(.white)
                                 .frame(width: 200, height: 40)
-                                .background(Rectangle().fill(isTrackingTime ? .red : .green))
+                                .background(Rectangle().fill(workingOnRecipeManager.isWorkingOnRecipe ? .red : .green))
                                 .cornerRadius(20)
                         }.padding(.top,10)
 
