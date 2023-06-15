@@ -44,6 +44,7 @@ struct TimeTrackingWidgetView: View {
         VStack(alignment: .leading) {
             Text("Sharecipe")
                 .font(.title)
+            Text("Receita de: \(context.state.recipe.name)")
             Text("Seu preparo estará pronto em \(targetTime)")
                 .font(.subheadline)
                 .padding(.bottom,10)
