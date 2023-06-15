@@ -7,7 +7,7 @@ struct RecipeData {
                 name: "Ovo Cozido",
                 cardImage: "cardOvocozido",
                 recipeImage: "recipeOvocozido",
-                preparationTime: 5,
+                preparationTime: 1,
                 level: "Simples",
                 portion: "2 Porçòes",
                 tools: ["Pot", "Stove", "Bowl", "testeetstestestestr", "teste2", "tesasdasdasdte3"],
@@ -39,7 +39,7 @@ struct RecipeData {
                 name: "Risoto de Camarão",
                 cardImage: "cardImage",
                 recipeImage: "recipeImage",
-                preparationTime: 5,
+                preparationTime: 1,
                 level: "Médio",
                 portion: "4 porções",
                 tools: [

@@ -34,6 +34,7 @@ struct TimeTracker_Widget: Widget {
 struct TimeTrackingWidgetView: View {
     let context: ActivityViewContext<TimeTrackingAttributes>
 
+
     var targetTime: Date {
         let preparationTime = context.state.recipe.preparationTime
         return Calendar.current.date(byAdding: .minute, value: preparationTime, to: Date())!

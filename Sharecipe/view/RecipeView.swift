@@ -1,19 +1,22 @@
 import Foundation
 import SwiftUI
 import ActivityKit
+import AVFoundation
 
 
 struct RecipeView: View {
-        var recipe: Recipe
+    var recipe: Recipe
 
-        @State private var isTrackingTime: Bool = false
-        @State private var startTime: Date? = nil
+    @State private var isTrackingTime: Bool = false
+    @State private var startTime: Date? = nil
 
-        @State private var activity: Activity<TimeTrackingAttributes>? = nil
+    @State private var activity: Activity<TimeTrackingAttributes>? = nil
 
+    // Define the grid layout: 3 columns of flexible width.
+    let gridLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
 
-        // Define the grid layout: 3 columns of flexible width.
-        let gridLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
+    @State private var audioPlayer: AVAudioPlayer?
+
 
     var body: some View {
         VStack(spacing: 0) {
@@ -187,23 +190,34 @@ struct RecipeView: View {
 
                                 // Start Live Activity
                                 let attributes = TimeTrackingAttributes()
-                                //let state = TimeTrackingAttributes.ContentState(startTime: .now, recipe: recipe)
                                 let state = TimeTrackingAttributes.ContentState(recipe: recipe)
-
                                 activity = try? Activity<TimeTrackingAttributes>.request(attributes: attributes, contentState: state, pushType: nil)
 
+                                // Start a timer based on recipe.preparationTime (converted to seconds)
+                                let deadline = DispatchTime.now() + .seconds(recipe.preparationTime * 60)
+                                
+                                DispatchQueue.main.asyncAfter(deadline: deadline) {
+                                    if isTrackingTime {
+                                        if let sound = Bundle.main.url(forResource: "song", withExtension: "mp3") {
+                                            do {
+                                                audioPlayer = try AVAudioPlayer(contentsOf: sound)
+                                                audioPlayer?.play()
+                                                print("Audio Played")
+                                            } catch {
+                                                print("Failed to play sound: \(error)")
+                                            }
+                                        }
+                                    }
+                                }
                             } else {
-                                //guard let startTime else {return}
-                                //let state = TimeTrackingAttributes.ContentState(startTime: startTime, recipe: recipe)
-                                let state = TimeTrackingAttributes.ContentState(recipe: recipe)
+                                audioPlayer?.stop()
+                                audioPlayer = nil
 
+                                let state = TimeTrackingAttributes.ContentState(recipe: recipe)
                                 Task {
                                     await activity?.end(using: state, dismissalPolicy: .immediate)
                                 }
-
                                 self.startTime = nil
-
-
                             }
                         } label: {
                             Text(isTrackingTime ? "PARAR" : "INICIAR PREPARO")
@@ -211,7 +225,7 @@ struct RecipeView: View {
                                 .foregroundColor(.white)
                                 .frame(width: 200, height: 40)
                                 .background(Rectangle().fill(isTrackingTime ? .red : .green))
-                                .cornerRadius(20)  // Aqui você pode ajustar o valor para o raio que você deseja
+                                .cornerRadius(20)
                         }.padding(.top,10)
                     }
                 }
