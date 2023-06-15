@@ -8,6 +8,7 @@
 import WidgetKit
 import SwiftUI
 import ActivityKit
+import AVFoundation
 
 struct TimeTracker_Widget: Widget {
     var body: some WidgetConfiguration {
