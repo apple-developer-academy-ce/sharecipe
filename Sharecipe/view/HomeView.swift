@@ -116,14 +116,21 @@ struct HomeView: View {
 
                                     VStack(alignment: .leading) {
                                         Text(recipe.name)
-                                        Text("Tempo de Preparo: \(recipe.preparationTime)")
-                                            .font(.subheadline)
-                                            .foregroundColor(.gray)
+                                            .bold()
+                                        HStack {
+                                            Text("Tempo de Preparo:")
+                                                .font(.subheadline)
+                                                .foregroundColor(Color(.systemGray))
+                                            Text("\(recipe.preparationTime) minutos")
+                                                .font(.subheadline)
+                                                .foregroundColor(Color(.systemGray))
+                                                .bold()
+                                        }
                                     }
                                     //.frame(maxWidth: .infinity, minHeight: 10)
 
                                     .padding()
-                                    .background(Color.black.opacity(0.5))
+                                    .background(Color.black.opacity(0.6))
                                     .foregroundColor(.white)
                                     .cornerRadius(8)
                                 }
@@ -150,8 +157,8 @@ struct HomeView: View {
         .toolbar {
 
             ToolbarItem(placement: .principal) {
-                Text("Sharecipe") //Title Aligned to the left of screen
-                        .font(.custom("DeliCakeRegular", size: 36))
+                Text("Flavory") //Title Aligned to the left of screen
+                        .font(.custom("HV-Cocktail-Regular", size: 36))
             }
 
             ToolbarItemGroup(placement: .navigationBarTrailing) {

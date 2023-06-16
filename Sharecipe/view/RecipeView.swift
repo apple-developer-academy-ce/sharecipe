@@ -32,6 +32,7 @@ struct RecipeView: View {
 
                 Text(recipe.name)
                     .font(.title)
+                    .multilineTextAlignment(.center)
             }
 
             ScrollView {
@@ -71,7 +72,7 @@ struct RecipeView: View {
                             Text("Preparo")
                                 .multilineTextAlignment(.center)
                                 .font(.subheadline)
-                            Text("\(recipe.preparationTime)")
+                            Text("\(recipe.preparationTime) minutos")
                                 .multilineTextAlignment(.center)
                                 .font(.subheadline)
                                 .bold()
@@ -201,7 +202,7 @@ struct RecipeView: View {
                                 ActivityManager.shared.recipe = recipe
 
                                 // Start a timer based on recipe.preparationTime (converted to seconds)
-                                let deadline = DispatchTime.now() + .seconds(recipe.preparationTime * 5)
+                                let deadline = DispatchTime.now() + .seconds(recipe.preparationTime * 1)
 
                                 DispatchQueue.main.asyncAfter(deadline: deadline) {
                                     if workingOnRecipeManager.isWorkingOnRecipe {
