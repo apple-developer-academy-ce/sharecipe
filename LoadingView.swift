@@ -14,13 +14,16 @@ struct LoadingView: View {
     }
 
     var body: some View {
+
         ZStack {
             // Use the AppLoadingScreenBG image as a tiling background
             Image("AppBG")
                 .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(minWidth: 0, maxWidth: .infinity)
                 .edgesIgnoringSafeArea(.all)
-                .scaledToFill()
                 .opacity(0.2)
+
 
             HStack {
                 VStack {
@@ -40,7 +43,7 @@ struct LoadingView: View {
             }
             .frame(maxWidth: .infinity)
             .background(Color(.systemGray6))
-            .opacity(0.7)
+            .opacity(0.8)
             .overlay {
                 VStack {
                     Text("Flavory") // This is the title
@@ -58,6 +61,8 @@ struct LoadingView: View {
             }
 
         }
+        .edgesIgnoringSafeArea(.all)
+        //.ignoresSafeArea(.all)
 
         .onAppear(perform: prepareToNavigate)
         .onTapGesture {
