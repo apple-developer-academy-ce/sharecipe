@@ -226,9 +226,10 @@ struct RecipeView: View {
                             }
                         } label: {
                             Text(workingOnRecipeManager.isWorkingOnRecipe ? "PARAR" : "INICIAR PREPARO")
-                                .fontWeight(.light)
+
                                 .foregroundColor(.white)
-                                .frame(width: 200, height: 40)
+                                .font(UIDevice.current.userInterfaceIdiom == .phone ? .title3.weight(.semibold) : .title.weight(.semibold))
+                                .frame(width: UIDevice.current.userInterfaceIdiom == .phone ? 200 : 350, height: UIDevice.current.userInterfaceIdiom == .phone ? 40 : 70)
                                 .background(Rectangle().fill(workingOnRecipeManager.isWorkingOnRecipe ? .red : .green))
                                 .cornerRadius(20)
                         }.padding(.top,10)

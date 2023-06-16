@@ -27,42 +27,28 @@ struct LoadingView: View {
 
             HStack {
                 VStack {
-                    Text("Flavory") // This is the title
-                        .font(.custom("HV-Cocktail-Regular", size: 32))
-                        .foregroundColor(Color.primary)
-                    Text("Your finest cooking app!") // This is the subtitle
-                        .font(.custom("HV-Cocktail-Regular", size: 16))
-                        .foregroundColor(Color.primary)
 
-                    Image("AppLoadingScreen") // Replace with your own logo image
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 200, height: 200, alignment: .center)
                 }
                 .padding(10)
             }
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity, minHeight: 200)
             .background(Color(.systemGray6))
             .opacity(0.8)
             .overlay {
                 VStack {
                     Text("Flavory") // This is the title
-                        .font(.custom("HV-Cocktail-Regular", size: 32))
-                        .foregroundColor(Color.primary)
-                    Text("Your finest cooking app!") // This is the subtitle
-                        .font(.custom("HV-Cocktail-Regular", size: 16))
+                        .font(.custom("HV-Cocktail-Regular", size: UIDevice.current.userInterfaceIdiom == .phone ? 32 : 64))
                         .foregroundColor(Color.primary)
 
-                    Image("AppLoadingScreen") // Replace with your own logo image
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 200, height: 200, alignment: .center)
+                    Text("Your finest cooking app!") // This is the subtitle
+                        .font(.custom("HV-Cocktail-Regular", size: UIDevice.current.userInterfaceIdiom == .phone ? 16 : 32))
+                        .foregroundColor(Color.primary)
+
                 }
             }
 
         }
         .edgesIgnoringSafeArea(.all)
-        //.ignoresSafeArea(.all)
 
         .onAppear(perform: prepareToNavigate)
         .onTapGesture {

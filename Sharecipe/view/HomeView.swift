@@ -43,9 +43,9 @@ struct CustomSegmentedControl: View {
                         HStack {
                             Image(labels[index].1)
                                 .resizable()
-                                .frame(width: 30, height: 30)
+                                .frame(width: UIDevice.current.userInterfaceIdiom == .phone ? 30 : 40, height: UIDevice.current.userInterfaceIdiom == .phone ? 30 : 40)
                             Text(labels[index].0)
-                                .font(.subheadline)
+                                .font(UIDevice.current.userInterfaceIdiom == .phone ? .subheadline : .title2)
                                 .foregroundColor(Color.primary)
                         }
                     }
@@ -77,7 +77,6 @@ struct CustomUnderlineView: View {
         }.frame(height: 2)
     }
 }
-
 
 struct HomeView: View {
 
@@ -116,15 +115,18 @@ struct HomeView: View {
 
                                     VStack(alignment: .leading) {
                                         Text(recipe.name)
-                                            .bold()
+                                            .font(UIDevice.current.userInterfaceIdiom == .phone ? .body : .largeTitle)
+                                            .fontWeight(.bold)
                                         HStack {
                                             Text("Tempo de Preparo:")
-                                                .font(.subheadline)
+                                                .font(UIDevice.current.userInterfaceIdiom == .phone ? .subheadline : .title)
                                                 .foregroundColor(Color(.systemGray))
+
                                             Text("\(recipe.preparationTime) minutos")
-                                                .font(.subheadline)
+                                                .font(UIDevice.current.userInterfaceIdiom == .phone ? .subheadline : .title)
+                                                .fontWeight(.bold)
                                                 .foregroundColor(Color(.systemGray))
-                                                .bold()
+
                                         }
                                     }
                                     //.frame(maxWidth: .infinity, minHeight: 10)
@@ -158,7 +160,7 @@ struct HomeView: View {
 
             ToolbarItem(placement: .principal) {
                 Text("Flavory") //Title Aligned to the left of screen
-                        .font(.custom("HV-Cocktail-Regular", size: 36))
+                    .font(.custom("HV-Cocktail-Regular", size: UIDevice.current.userInterfaceIdiom == .phone ? 36 : 72))
             }
 
             ToolbarItemGroup(placement: .navigationBarTrailing) {
