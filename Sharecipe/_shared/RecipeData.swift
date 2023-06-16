@@ -2,7 +2,19 @@ import Foundation
 
 struct RecipeData {
     static let cookingLevels: [CookingLevel] = [
+
         CookingLevel(name: "Simples", recipes: [
+            Recipe(
+                name: "Copo D'água com Limão",
+                cardImage: "cardCopoDagua",
+                recipeImage: "recipeCopoDagua",
+                preparationTime: 1,
+                level: "Simples",
+                portion: "10 porções",
+                tools: ["01 Copo", "01 Faca"],
+                ingredients: ["200ml de Água", "1 Limão"],
+                preparationInstructions: ["Encha o copo com água", "Corte o limão em rodelas e bote no copo com água", "Beba"]
+            ),
             Recipe(
                 name: "Ovo Cozido",
                 cardImage: "cardOvocozido",
@@ -50,6 +62,7 @@ struct RecipeData {
         ]),
 
         CookingLevel(name: "Médio", recipes: [
+
             Recipe(
                 name: "Bolo Fofo",
                 cardImage: "cardBoloFofo",
@@ -88,6 +101,7 @@ struct RecipeData {
 
 
         ]),
+
         CookingLevel(name: "Elaborado", recipes: [
             Recipe(
                 name: "Lasanha Bolonhesa",
