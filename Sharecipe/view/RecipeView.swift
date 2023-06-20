@@ -202,7 +202,9 @@ struct RecipeView: View {
                                 ActivityManager.shared.recipe = recipe
 
                                 // Start a timer based on recipe.preparationTime (converted to seconds)
-                                let deadline = DispatchTime.now() + .seconds(recipe.preparationTime * 1)
+                                let deadline = DispatchTime.now() + .seconds(recipe.preparationTime * 60)
+
+                                print (deadline)
 
                                 DispatchQueue.main.asyncAfter(deadline: deadline) {
                                     if workingOnRecipeManager.isWorkingOnRecipe {

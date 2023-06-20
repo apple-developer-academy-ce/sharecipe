@@ -21,3 +21,19 @@ struct SharecipeApp: App {
         }
     }
 }
+
+//
+//import SwiftUI
+//import AVFoundation
+//
+//@main
+//struct SharecipeApp: App {
+//
+//    var body: some Scene {
+//        WindowGroup {
+//            NavigationStack {
+//                ContentView()
+//            }
+//        }
+//    }
+//}

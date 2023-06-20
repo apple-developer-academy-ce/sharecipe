@@ -3,15 +3,15 @@ import SwiftUI
 struct LoadingView: View {
     @State private var enableHomeView = false
 
-    init(){
-        for familyName in UIFont.familyNames {
-            print(familyName)
-
-            for fontName in UIFont.fontNames(forFamilyName: familyName) {
-                print ("\(fontName)")
-            }
-        }
-    }
+//    init(){
+//        for familyName in UIFont.familyNames {
+//            print(familyName)
+//
+//            for fontName in UIFont.fontNames(forFamilyName: familyName) {
+//                print ("\(fontName)")
+//            }
+//        }
+//    }
 
     var body: some View {
 
@@ -40,7 +40,7 @@ struct LoadingView: View {
                         .font(.custom("HV-Cocktail-Regular", size: UIDevice.current.userInterfaceIdiom == .phone ? 32 : 64))
                         .foregroundColor(Color.primary)
 
-                    Text("Your finest cooking app!") // This is the subtitle
+                    Text("Seu app de culinária!") // This is the subtitle
                         .font(.custom("HV-Cocktail-Regular", size: UIDevice.current.userInterfaceIdiom == .phone ? 16 : 32))
                         .foregroundColor(Color.primary)
 
@@ -55,7 +55,7 @@ struct LoadingView: View {
             self.enableHomeView = true
         }
         .navigationDestination(isPresented: $enableHomeView) {
-            HomeView()
+            ContentView()
         }
     }
 
