@@ -1,7 +1,12 @@
 import UserNotifications
 
-class LocalNotificationManager {
-    private init() {}
+class LocalNotificationManager: NSObject, UNUserNotificationCenterDelegate {
+
+    override init() {
+        super.init()
+        UNUserNotificationCenter.current().delegate = self
+    }
+
     static let shared = LocalNotificationManager()
 
     func requestAuthorization() {
@@ -27,5 +32,11 @@ class LocalNotificationManager {
 
         ActivityManager.shared.endActivity()
         
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .list, .sound])
     }
 }

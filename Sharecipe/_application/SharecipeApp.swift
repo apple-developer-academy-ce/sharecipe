@@ -3,7 +3,7 @@ import AVFoundation
 
 @main
 struct SharecipeApp: App {
-    @StateObject var audioPlayerManager = AudioPlayerManager()
+    //@StateObject var audioPlayerManager = AudioPlayerManager()
     @StateObject var workingOnRecipeManager = WorkingOnRecipeManager() //Calls Modules
 
 
@@ -16,7 +16,7 @@ struct SharecipeApp: App {
             NavigationStack {
                 LoadingView()
             }
-            .environmentObject(audioPlayerManager)
+            //.environmentObject(audioPlayerManager)
             .environmentObject(workingOnRecipeManager)
         }
     }

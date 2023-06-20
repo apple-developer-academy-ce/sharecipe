@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 import ActivityKit
-import AVFoundation
+//import AVFoundation
 
 
 struct RecipeView: View {
@@ -16,7 +16,7 @@ struct RecipeView: View {
 
     //Modular
     @EnvironmentObject var workingOnRecipeManager: WorkingOnRecipeManager //Observes a Envrioment Object (Global Var)
-    @EnvironmentObject var audioPlayerManager: AudioPlayerManager
+    //@EnvironmentObject var audioPlayerManager: AudioPlayerManager
 
 
 
@@ -191,39 +191,43 @@ struct RecipeView: View {
                             if workingOnRecipeManager.isWorkingOnRecipe {
                                 startTime = .now
 
-                                print ("Audio Started")
+                                print ("Scheduling Notification")
 
                                 // Start Live Activity
                                 let attributes = TimeTrackingAttributes()
                                 let state = TimeTrackingAttributes.ContentState(recipe: recipe)
+                                
                                 activity = try? Activity<TimeTrackingAttributes>.request(attributes: attributes, contentState: state, pushType: nil)
 
                                 ActivityManager.shared.activity = activity
                                 ActivityManager.shared.recipe = recipe
 
                                 // Start a timer based on recipe.preparationTime (converted to seconds)
-                                let deadline = DispatchTime.now() + .seconds(recipe.preparationTime * 60)
-
-                                print (deadline)
+                                let deadline = DispatchTime.now() + .seconds(recipe.preparationTime * 10)
 
                                 DispatchQueue.main.asyncAfter(deadline: deadline) {
+
                                     if workingOnRecipeManager.isWorkingOnRecipe {
-                                        if let sound = Bundle.main.url(forResource: "song", withExtension: "mp3") {
-                                            self.audioPlayerManager.playSound(sound: sound)
-                                        }
+                                        print ("Recipe Complete - Show Notification")
+                                        LocalNotificationManager.shared.scheduleNotification(title: "Seu preparo está pronto!", body: "Toque para abrir o app.", timeInterval: 1)
                                     }
                                 }
                             } else {
-                                print ("Audio Stopped")
 
-                                self.audioPlayerManager.stopSound()
+                                // Cancel all notifications if preparation is stopped
+                                print("Cancel Button Pressed - Removing all pending notifications requests")
+                                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
 
+                                // Cancell all live activity if preparation is stopped
                                 let state = TimeTrackingAttributes.ContentState(recipe: recipe)
+
                                 Task {
+                                    print("Dismissing all live activity")
                                     await activity?.end(using: state, dismissalPolicy: .immediate)
                                 }
                                 self.startTime = nil
 
+                                print ("Ending All Activities")
                                 ActivityManager.shared.endActivity()
                             }
                         } label: {
