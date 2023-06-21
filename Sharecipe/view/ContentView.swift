@@ -44,11 +44,9 @@ struct ContentView: View {
                     .font(.custom("HV-Cocktail-Regular", size: UIDevice.current.userInterfaceIdiom == .phone ? 36 : 72))
             }
 
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-            }
-
-
             ToolbarItemGroup(placement: .bottomBar) {
+                Spacer()
+
                 Button(action: { selectedTab = 0 }) {
                     VStack(spacing: 0) {
                         Image("OVO")
@@ -59,7 +57,9 @@ struct ContentView: View {
                             .foregroundColor(selectedTab == 0 ? .primary : .secondary)
                     }
                 }
+
                 Spacer()
+
                 Button(action: { selectedTab = 1 }) {
                     VStack(spacing: 0) {
                         Image("SANDUICHE")
@@ -70,6 +70,7 @@ struct ContentView: View {
                             .foregroundColor(selectedTab == 1 ? .primary : .secondary)
                     }
                 }
+
                 Spacer()
 
                 Button(action: { selectedTab = 2 }) {
@@ -82,6 +83,8 @@ struct ContentView: View {
                             .foregroundColor(selectedTab == 2 ? .primary : .secondary)
                     }
                 }
+
+                Spacer()
             }
         }
 

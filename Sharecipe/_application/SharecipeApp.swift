@@ -6,7 +6,6 @@ struct SharecipeApp: App {
     //@StateObject var audioPlayerManager = AudioPlayerManager()
     @StateObject var workingOnRecipeManager = WorkingOnRecipeManager() //Calls Modules
 
-
     init() {
         LocalNotificationManager.shared.requestAuthorization()
     }
@@ -16,24 +15,7 @@ struct SharecipeApp: App {
             NavigationStack {
                 LoadingView()
             }
-            //.environmentObject(audioPlayerManager)
             .environmentObject(workingOnRecipeManager)
         }
     }
 }
-
-//
-//import SwiftUI
-//import AVFoundation
-//
-//@main
-//struct SharecipeApp: App {
-//
-//    var body: some Scene {
-//        WindowGroup {
-//            NavigationStack {
-//                ContentView()
-//            }
-//        }
-//    }
-//}

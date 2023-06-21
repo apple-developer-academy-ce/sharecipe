@@ -15,248 +15,257 @@ struct RecipeView: View {
     let gridLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
 
     //Modular
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var workingOnRecipeManager: WorkingOnRecipeManager //Observes a Envrioment Object (Global Var)
     //@EnvironmentObject var audioPlayerManager: AudioPlayerManager
 
 
 
     var body: some View {
-        VStack(spacing: 0) {
 
-            //Recipe Image and Title
-            Group {
-                Image(recipe.recipeImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: .infinity)
+            VStack(spacing: 0) {
 
-                Text(recipe.name)
-                    .font(.title)
-                    .multilineTextAlignment(.center)
-            }
-
-            ScrollView {
-
-                //Resumo da Receita
+                //Recipe Image and Title
                 Group {
-
-                    HStack {
-                        VStack {
-                            Image("PRATO") // replace with your icon
-                                .resizable()
-                                .frame(width: 40, height: 40)
-
-                        }
+                    Image(recipe.recipeImage)
+                        .resizable()
+                        .scaledToFit()
                         .frame(maxWidth: .infinity)
 
-                        VStack {
-                            Image("TIGELA") // replace with your icon
-                                .resizable()
-                                .frame(width: 40, height: 40)
-
-                        }
-                        .frame(maxWidth: .infinity)
-
-                        VStack {
-                            Image("CHAPEU") // replace with your icon
-                                .resizable()
-                                .frame(width: 40, height: 40)
-
-                        }
-                        .frame(maxWidth: .infinity)
-                    }
-                    .padding(.top,10)
-
-                    HStack {
-                        VStack {
-                            Text("Preparo")
-                                .multilineTextAlignment(.center)
-                                .font(.subheadline)
-                            Text("\(recipe.preparationTime) minutos")
-                                .multilineTextAlignment(.center)
-                                .font(.subheadline)
-                                .bold()
-                        }
-                        .frame(maxWidth: .infinity)
-                        VStack {
-                            Text("Dificuldade")
-                                .multilineTextAlignment(.center)
-                                .font(.subheadline)
-
-                            Text(recipe.level)
-                                .font(.subheadline)
-                                .multilineTextAlignment(.center)
-                                .bold()
-                        }
-                        .frame(maxWidth: .infinity)
-                        VStack {
-                            Text("Rendimento")
-                                .multilineTextAlignment(.center)
-                                .font(.subheadline)
-
-                            Text(recipe.portion)
-                                .multilineTextAlignment(.center)
-                                .font(.subheadline)
-                                .bold()
-
-                        }
-                        .frame(maxWidth: .infinity)
-                    }
-                    .padding(.bottom,5)
-
+                    Text(recipe.name)
+                        .font(.title)
+                        .multilineTextAlignment(.center)
+                        .padding(.bottom,5)
+                    Divider()
                 }
 
-                Divider()
+                ScrollView {
 
-                //Utensilios Necessários
-                Group {
-                    HStack {
-                        VStack {
-                            Text("Utensílios")
-                                .bold()
-                        }
-                        .frame(maxWidth: .infinity)
-                    }
-                    .padding(.bottom,5)
+                    //Resumo da Receita
+                    Group {
 
-                    LazyVGrid(columns: gridLayout, spacing: 20) {
-                        ForEach(recipe.tools, id: \.self) { tool in
-                            Text(tool)
-                                .multilineTextAlignment(.center)
-                                .font(.subheadline)
-                                .frame(maxWidth: .infinity)
-                        }
+                        HStack {
+                            VStack {
+                                Image("PRATO") // replace with your icon
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
 
-
-                    }
-
-                }
-                .padding(.leading,5)
-                .padding(.trailing,5)
-                .padding(.bottom,5)
-
-                Divider()
-
-                //Ingredientes Necessários
-                Group {
-                    HStack {
-                        VStack {
-                            Text("Ingredientes")
-                                .bold()
-                        }
-                        .frame(maxWidth: .infinity)
-                    }
-                    .padding(.bottom,5)
-
-                    LazyVGrid(columns: gridLayout, spacing: 20) {
-                        ForEach(recipe.ingredients, id: \.self) { ingredients in
-                            Text(ingredients)
-                                .multilineTextAlignment(.center)
-                                .font(.subheadline)
-                                .frame(maxWidth: .infinity)
-                        }
-                    }
-
-
-                }
-                .padding(.leading,5)
-                .padding(.trailing,5)
-                .padding(.bottom,5)
-
-                Divider()
-
-                //Modo de Preparo
-                Group {
-                    HStack {
-                        VStack() {
-                            Text("Modo de Preparo")
-                                .bold()
-                        }
-                        .frame(maxWidth: .infinity)
-                    }
-                    .padding(.bottom,10)
-
-                    VStack(alignment: .leading) {
-                        ForEach(recipe.preparationInstructions, id: \.self) { preparationInstructions in
-                            Text(preparationInstructions)
-                                .font(.subheadline)
-                                .padding(.leading,10)
-                        }
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                    VStack {
-                        Button {
-                            workingOnRecipeManager.isWorkingOnRecipe.toggle()
-                            if workingOnRecipeManager.isWorkingOnRecipe {
-                                startTime = .now
-
-                                print ("Scheduling Notification")
-
-                                // Start Live Activity
-                                let attributes = TimeTrackingAttributes()
-                                let state = TimeTrackingAttributes.ContentState(recipe: recipe)
-                                
-                                activity = try? Activity<TimeTrackingAttributes>.request(attributes: attributes, contentState: state, pushType: nil)
-
-                                ActivityManager.shared.activity = activity
-                                ActivityManager.shared.recipe = recipe
-
-                                // Start a timer based on recipe.preparationTime (converted to seconds)
-                                let deadline = DispatchTime.now() + .seconds(recipe.preparationTime * 10)
-
-                                DispatchQueue.main.asyncAfter(deadline: deadline) {
-
-                                    if workingOnRecipeManager.isWorkingOnRecipe {
-                                        print ("Recipe Complete - Show Notification")
-                                        LocalNotificationManager.shared.scheduleNotification(title: "Seu preparo está pronto!", body: "Toque para abrir o app.", timeInterval: 1)
-                                    }
-                                }
-                            } else {
-
-                                // Cancel all notifications if preparation is stopped
-                                print("Cancel Button Pressed - Removing all pending notifications requests")
-                                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-
-                                // Cancell all live activity if preparation is stopped
-                                let state = TimeTrackingAttributes.ContentState(recipe: recipe)
-
-                                Task {
-                                    print("Dismissing all live activity")
-                                    await activity?.end(using: state, dismissalPolicy: .immediate)
-                                }
-                                self.startTime = nil
-
-                                print ("Ending All Activities")
-                                ActivityManager.shared.endActivity()
                             }
-                        } label: {
-                            Text(workingOnRecipeManager.isWorkingOnRecipe ? "PARAR" : "INICIAR PREPARO")
+                            .frame(maxWidth: .infinity)
 
-                                .foregroundColor(.white)
-                                .font(UIDevice.current.userInterfaceIdiom == .phone ? .title3.weight(.semibold) : .title.weight(.semibold))
-                                .frame(width: UIDevice.current.userInterfaceIdiom == .phone ? 200 : 350, height: UIDevice.current.userInterfaceIdiom == .phone ? 40 : 70)
-                                .background(Rectangle().fill(workingOnRecipeManager.isWorkingOnRecipe ? .red : .green))
-                                .cornerRadius(20)
-                        }.padding(.top,10)
+                            VStack {
+                                Image("TIGELA") // replace with your icon
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+
+                            }
+                            .frame(maxWidth: .infinity)
+
+                            VStack {
+                                Image("CHAPEU") // replace with your icon
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
+                        .padding(.top,10)
+
+                        HStack {
+                            VStack {
+                                Text("Preparo")
+                                    .multilineTextAlignment(.center)
+                                    .font(.subheadline)
+                                Text("\(recipe.preparationTime) minutos")
+                                    .multilineTextAlignment(.center)
+                                    .font(.subheadline)
+                                    .bold()
+                            }
+                            .frame(maxWidth: .infinity)
+                            VStack {
+                                Text("Dificuldade")
+                                    .multilineTextAlignment(.center)
+                                    .font(.subheadline)
+
+                                Text(recipe.level)
+                                    .font(.subheadline)
+                                    .multilineTextAlignment(.center)
+                                    .bold()
+                            }
+                            .frame(maxWidth: .infinity)
+                            VStack {
+                                Text("Rendimento")
+                                    .multilineTextAlignment(.center)
+                                    .font(.subheadline)
+
+                                Text(recipe.portion)
+                                    .multilineTextAlignment(.center)
+                                    .font(.subheadline)
+                                    .bold()
+
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
+                        .padding(.bottom,5)
 
                     }
+
+                    Divider()
+
+                    //Utensilios Necessários
+                    Group {
+                        HStack {
+                            VStack {
+                                Text("Utensílios")
+                                    .bold()
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
+                        .padding(.bottom,5)
+
+                        LazyVGrid(columns: gridLayout, spacing: 20) {
+                            ForEach(recipe.tools, id: \.self) { tool in
+                                Text(tool)
+                                    .multilineTextAlignment(.center)
+                                    .font(.subheadline)
+                                    .frame(maxWidth: .infinity)
+                            }
+
+
+                        }
+
+                    }
+                    .padding(.leading,5)
+                    .padding(.trailing,5)
+                    .padding(.bottom,5)
+
+                    Divider()
+
+                    //Ingredientes Necessários
+                    Group {
+                        HStack {
+                            VStack {
+                                Text("Ingredientes")
+                                    .bold()
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
+                        .padding(.bottom,5)
+
+                        LazyVGrid(columns: gridLayout, spacing: 20) {
+                            ForEach(recipe.ingredients, id: \.self) { ingredients in
+                                Text(ingredients)
+                                    .multilineTextAlignment(.center)
+                                    .font(.subheadline)
+                                    .frame(maxWidth: .infinity)
+                            }
+                        }
+
+
+                    }
+                    .padding(.leading,5)
+                    .padding(.trailing,5)
+                    .padding(.bottom,5)
+
+                    Divider()
+
+                    //Modo de Preparo
+                    Group {
+                        HStack {
+                            VStack() {
+                                Text("Modo de Preparo")
+                                    .bold()
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
+                        .padding(.bottom,10)
+
+                        VStack(alignment: .leading) {
+                            ForEach(recipe.preparationInstructions, id: \.self) { preparationInstructions in
+                                Text(preparationInstructions)
+                                    .font(.subheadline)
+                                    .padding(.leading,10)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+
+                        VStack {
+                            Button {
+                                workingOnRecipeManager.isWorkingOnRecipe.toggle()
+                                if workingOnRecipeManager.isWorkingOnRecipe {
+                                    startTime = .now
+
+                                    print ("Scheduling Notification \(SharedDataManager.shared.targetTime)")
+
+                                    // Start Live Activity
+                                    let attributes = TimeTrackingAttributes()
+                                    let state = TimeTrackingAttributes.ContentState(recipe: recipe)
+
+                                    activity = try? Activity<TimeTrackingAttributes>.request(attributes: attributes, contentState: state, pushType: nil)
+
+                                    ActivityManager.shared.activity = activity
+                                    ActivityManager.shared.recipe = recipe
+
+                                    // Start a timer based on recipe.preparationTime (converted to seconds)
+                                    let deadline = DispatchTime.now() + .seconds(recipe.preparationTime * 60)
+
+                                    DispatchQueue.main.asyncAfter(deadline: deadline) {
+
+                                        if workingOnRecipeManager.isWorkingOnRecipe {
+                                            print ("Recipe Complete - Show Notification")
+                                            LocalNotificationManager.shared.scheduleNotification(title: "Seu preparo está pronto!", body: "Toque para abrir o app.", timeInterval: 1)
+                                        }
+                                    }
+                                } else {
+
+                                    // Cancel all notifications if preparation is stopped
+                                    print("Cancel Button Pressed - Removing all pending notifications requests")
+                                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+
+                                    // Cancell all live activity if preparation is stopped
+                                    let state = TimeTrackingAttributes.ContentState(recipe: recipe)
+
+                                    Task {
+                                        print("Dismissing all live activity")
+                                        await activity?.end(using: state, dismissalPolicy: .immediate)
+                                    }
+                                    self.startTime = nil
+
+                                    print ("Ending All Activities")
+                                    ActivityManager.shared.endActivity()
+                                }
+                            } label: {
+                                Text(workingOnRecipeManager.isWorkingOnRecipe ? "PARAR" : "INICIAR PREPARO")
+                                    //.shadow(color: colorScheme == .dark ? .gray : .clear, radius: 3, x: 0, y: 0)
+                                    .foregroundColor(colorScheme == .dark ? .black : .white)
+                                    .font(UIDevice.current.userInterfaceIdiom == .phone ? .title3.weight(.semibold) : .title.weight(.semibold))
+                                    .frame(width: UIDevice.current.userInterfaceIdiom == .phone ? 200 : 350, height: UIDevice.current.userInterfaceIdiom == .phone ? 40 : 70)
+                                    .background(Rectangle().fill(workingOnRecipeManager.isWorkingOnRecipe ? .red : .yellow))
+                                    .cornerRadius(20)
+                            }
+                            .padding(.top,10)
+                            .padding(.bottom,30)
+
+                        }
+                    }
                 }
-            }
-            .padding(.bottom,-10)
+                .padding(.bottom,-10)
 
-            Spacer()
-
-            //Hack to fix the background coolor of toolbar .bottombar
-            HStack {
                 Spacer()
-                Text("")
+
+                //Hack to fix the background coolor of toolbar .bottombar
+                HStack {
+                    Spacer()
+                    Text("")
+                }
+                .background(Color(.systemGray6))
+                //End of Hack
+
+
             }
-            .background(Color(.systemGray6))
-
-
-        }
         .ignoresSafeArea(.all, edges: [.top])
+
+
         .toolbarBackground(Color(.systemGray6).opacity(0.0), for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbar {

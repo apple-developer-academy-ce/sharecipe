@@ -3,6 +3,8 @@ import SwiftUI
 
 
 struct SimplesView: View {
+    @Environment(\.colorScheme) var colorScheme
+
 
     var body: some View {
 
@@ -42,12 +44,14 @@ struct SimplesView: View {
                                 .foregroundColor(.white)
                                 .cornerRadius(8)
                             }
-
                             .frame(maxWidth: .infinity, minHeight: 200)
                             .cornerRadius(8)
+                            .padding(.bottom,10)
                         }
                     }
                 }
+                .shadow(color: colorScheme == .dark ? Color.white.opacity(0.0) : Color.primary.opacity(1.0), radius: 5, x: 0, y: 0)
+
                 .padding()
                 //.border(Color.blue)
             }
