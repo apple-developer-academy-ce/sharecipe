@@ -155,6 +155,7 @@
 		85366F6D2A2F706300FF327D = {
 			isa = PBXGroup;
 			children = (
+				85A449252A4340EC00209F07 /* Junk */,
 				85366F782A2F706300FF327D /* Sharecipe */,
 				850CEEC32A389D30004F14A9 /* TimeTracker_Widget */,
 				850CEEBE2A389D30004F14A9 /* Frameworks */,
@@ -224,7 +225,6 @@
 				85C9E2122A40A16200D84674 /* MedioView.swift */,
 				85C9E2142A40A16E00D84674 /* ElaboradoView.swift */,
 				852080A22A2F718900DB9ADC /* RecipeView.swift */,
-				85C9E21F2A41DD5900D84674 /* RecipeView2.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -235,6 +235,14 @@
 				85893F102A3A9338009D4B7E /* song.mp3 */,
 			);
 			path = _sounds;
+			sourceTree = "<group>";
+		};
+		85A449252A4340EC00209F07 /* Junk */ = {
+			isa = PBXGroup;
+			children = (
+				85C9E21F2A41DD5900D84674 /* RecipeView2.swift */,
+			);
+			path = Junk;
 			sourceTree = "<group>";
 		};
 		85C0A5602A30D93E00477732 /* _fonts */ = {

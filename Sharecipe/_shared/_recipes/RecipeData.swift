@@ -13,7 +13,7 @@ struct RecipeData {
                 portion: "10 porções",
                 tools: ["01 Copo", "01 Faca"],
                 ingredients: ["200ml de Água", "1 Limão"],
-                preparationInstructions: ["Encha o copo com água", "Corte o limão em rodelas e bote no copo com água", "Beba"]
+                preparationInstructions: ["1. Encha o copo com água", "2. Corte o limão em rodelas e bote no copo com água", "3. Beba"]
             ),
             Recipe(
                 name: "Ovo Cozido",

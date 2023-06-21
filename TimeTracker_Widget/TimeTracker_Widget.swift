@@ -57,8 +57,9 @@ struct TimeTracker_Widget: Widget {
                 }
             } compactTrailing: {
                 Text(formattedTargetTime)
+                    .padding(.trailing,3)
             } minimal: {
-               Text("Hello There")
+                Image(systemName: "clock")
             }
         }
     }
