@@ -35,7 +35,6 @@ struct MedioView: View {
 
                                     }
                                 }
-                                //.frame(maxWidth: .infinity, minHeight: 10)
 
                                 .padding()
                                 .background(Color.black.opacity(0.6))

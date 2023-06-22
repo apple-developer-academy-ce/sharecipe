@@ -1,31 +1,3 @@
-/*
- import Foundation
-
- struct RecipeData {
-     static let cookingLevels: [CookingLevel] = [
-
-         CookingLevel(name: "Simples", recipes: [
-             Recipe(
-                 name: "Copo D'água com Limão",
-                 cardImage: "cardCopoDagua",
-                 recipeImage: "recipeCopoDagua",
-                 preparationTime: 1,
-                 level: "Simples",
-                 portion: "10 porções",
-                 tools: ["01 Copo", "01 Faca"],
-                 ingredients: ["200ml de Água", "1 Limão"],
-                 preparationInstructions: ["1. Encha o copo com água", "2. Corte o limão em rodelas e bote no copo com água", "3. Beba"]
-             ),
-        ]),
-    ]
- }
-
-
-
- */
-
-
-
 import Foundation
 
 struct RecipeData {
@@ -64,17 +36,25 @@ struct RecipeData {
                  ]
 
             ),
-//            Recipe(
-//                name: "Pão na Chapa",
-//                cardImage: "cardPaoNaChapa",
-//                recipeImage: "recipePaoNaChapa",
-//                preparationTime: 10,
-//                level: "Simples",
-//                portion: "2 porções",
-//                tools: ["frigideira", "espátula"],
-//                ingredients: ["2 fatias de pão de forma", "manteiga a gosto"],
-//                preparationInstructions: ["Aqueça uma frigideira em fogo médio.", "Espalhe manteiga em uma das faces de cada fatia de pão.", "Coloque as fatias de pão com a parte com manteiga virada para baixo na frigideira aquecida.", "Deixe o pão tostar por cerca de 2 minutos, até ficar dourado e crocante.", "Vire as fatias de pão com a espátula e toste o outro lado por mais 1-2 minutos.", "Retire o pão da frigideira e sirva quente.", "Você pode servir o Pão na Chapa acompanhado de queijo, presunto, requeijão ou outros ingredientes de sua preferência."]
-//            ),
+            Recipe(
+                name: "Pão na Chapa",
+                cardImage: "cardPaoNaChapa",
+                recipeImage: "recipePaoNaChapa",
+                preparationTime: 10,
+                level: "Simples",
+                portion: "2 porções",
+                tools: ["frigideira", "espátula"],
+                ingredients: ["2 fatias de pão de forma", "manteiga a gosto"],
+                preparationInstructions: [
+                    Instruction(step: "1. Aqueça uma frigideira em fogo médio.", time: 0),
+                    Instruction(step: "2. Espalhe manteiga em uma das faces de cada fatia de pão.", time: 0),
+                    Instruction(step: "3. Coloque as fatias de pão com a parte com manteiga virada para baixo na frigideira aquecida.", time: 0),
+                    Instruction(step: "4. Deixe o pão tostar por cerca de 2 minutos, até ficar dourado e crocante.", time: 2),
+                    Instruction(step: "5. Vire as fatias de pão com a espátula e toste o outro lado por mais 1-2 minutos.", time: 2),
+                    Instruction(step: "6. Retire o pão da frigideira e sirva quente.", time: 0),
+                    Instruction(step: "7. Você pode servir o Pão na Chapa acompanhado de queijo, presunto, requeijão ou outros ingredientes de sua preferência.", time: 0),
+                ]
+            ),
 //            Recipe(
 //                name: "Macarrão Alho e Óleo",
 //                cardImage: "cardMacarraoAlhoOleo",

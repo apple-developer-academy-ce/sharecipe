@@ -178,25 +178,31 @@ struct RecipeView: View {
                     //Modo de Preparo
                     Group {
                         HStack {
-                            VStack() {
-                                Text("Modo de Preparo")
-                                    .bold()
-                                if buttonPressed {
-                                    Text("Lembrete definido para \(SharedDataManager.shared.targetTime).")
-                                        .multilineTextAlignment(.center)
-                                        .font(.callout)
-                                        .foregroundColor(.red)
+                            VStack {
+                                VStack() {
+                                    Text("Modo de Preparo")
+                                        .bold()
                                 }
-                                else {
-                                    Text("Pressione o relógio para ativar lembrete.")
-                                        .multilineTextAlignment(.center)
-                                        .foregroundColor(Color(.systemGray))
-                                        .font(.callout)
+                                VStack {
+                                    if buttonPressed {
+                                        Text("Lembrete definido para \(SharedDataManager.shared.targetTime).")
+                                            .multilineTextAlignment(.center)
+                                            .font(.callout)
+                                            .foregroundColor(.red)
+                                    }
+                                    else {
+                                        Text("Dica: pressione o relógio para ativar lembrete.")
+                                            .multilineTextAlignment(.center)
+                                            .foregroundColor(Color(.systemGray))
+                                            .font(.callout)
+                                    }
                                 }
-
+                                .scaleEffect(buttonPressed ? 1.1 : 1.0) // add a scale effect for button pressed
+                                .animation(.easeInOut) // animate the scale effect
+                                .frame(maxWidth: .infinity)
                             }
-                            .frame(maxWidth: .infinity)
                         }
+                        .padding()
                         .padding(.bottom,10)
 
                         VStack(alignment: .leading) {
@@ -207,16 +213,25 @@ struct RecipeView: View {
 
                                     HStack {
                                         Text("\(instruction.step)")
-                                            .font(.subheadline)
-                                            .foregroundColor(.blue)
-                                        Image(systemName: "clock")
-                                            .foregroundColor(.blue)
+                                            .font(buttonPressed && instruction.id == selectedButtonID ? .title : .subheadline) // Dynamically change font size
+                                            .foregroundColor(buttonPressed && instruction.id == selectedButtonID ? .red : .blue)
+                                            .lineLimit(nil) // This allows the text to wrap onto as many lines as needed
+                                            .fixedSize(horizontal: false, vertical: true) // This allows the text view to expand vertically to fit the text
+                                            .transition(.scale) // Add transition for smoother change
+                                            .animation(.easeInOut, value: buttonPressed && instruction.id == selectedButtonID) // Apply animation
+
+
+                                        if (buttonPressed && instruction.id == selectedButtonID) {
+                                            ProgressView()
+                                                .padding(.leading,3)
+                                                .tint(.red)
+
+                                        } else {
+                                            Image(systemName: "clock")
+                                            .foregroundColor(buttonPressed && instruction.id == selectedButtonID ? .red : .blue)
+                                        }
+
                                     }
-
-
-                                    .frame(alignment: .leading) // Align the text to the leading edge
-                                    .scaleEffect(buttonPressed && instruction.id == selectedButtonID ? 1.3 : 1.0, anchor: .leading)
-                                    .animation(.easeInOut) // animate the scale effect
                                     .gesture(LongPressGesture(minimumDuration: 0.5).onEnded { _ in
 
                                         let generator = UIImpactFeedbackGenerator(style: .heavy)
@@ -291,8 +306,10 @@ struct RecipeView: View {
 
                                                 print ("Ending All Activities")
                                                 ActivityManager.shared.endActivity()
+                                            
                                             }
                                         })
+
                                     .padding(.bottom,5)
                                     .alert(isPresented: $showingAlert) {
                                         Alert(title: Text("Você iniciou um preparo!"), message: Text("Este estágio ficará pronto em \(instruction.time) minuto(s)."), dismissButton: .default(Text("Ok!")))
@@ -301,7 +318,7 @@ struct RecipeView: View {
                                     Text(instruction.step)
                                         .font(.subheadline)
                                         .padding(.bottom,5)
-                                        //.padding(.leading,10)
+
                                 }
                             }
                         }
