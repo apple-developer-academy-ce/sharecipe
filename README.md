@@ -1,5 +1,5 @@
 # Sharecipe
-![Frame 4](https://github.com/apple-developer-academy-ce/sharecipe/assets/9482093/a693706b-d082-4c01-89fc-b049608fe272)
+![Frame 4 (1)](https://github.com/apple-developer-academy-ce/sharecipe/assets/9482093/4cc03139-8fc3-49ce-ac5a-f15bb1880b04)
 
 
 
