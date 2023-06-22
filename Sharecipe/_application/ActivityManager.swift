@@ -16,5 +16,8 @@ class ActivityManager {
         }
         self.activity = nil
         self.recipe = nil
+
+        print ("[DEBUG / ActivityManager.swift] Removing All Live Activities\n")
+
     }
 }

@@ -236,80 +236,76 @@ struct RecipeView: View {
                                     .gesture(LongPressGesture(minimumDuration: 0.5).onEnded { _ in
 
                                         let generator = UIImpactFeedbackGenerator(style: .heavy)
-
                                         generator.impactOccurred()
 
+                                        //INVERTE A SITUACAO DO BOTAO PARA VERDADEIRO OU FALSOE
                                         workingOnRecipeManager.isWorkingOnRecipe.toggle()
 
                                         //Getting the button UUID
                                         self.selectedButtonID = instruction.id
 
+                                        //SE O USUARIO INICIOU UMA ETAPA DE RECEITA, ATIVA TUDO
+                                        //MARK: ACTIVE ALL
                                         if workingOnRecipeManager.isWorkingOnRecipe {
 
-                                                //Passing TargetTime to DataManager (Global)
-                                                SharedDataManager.shared.setTargetTime(minutes: instruction.time)
+                                            //Passing TargetTime to DataManager (Global)
+                                            SharedDataManager.shared.setTargetTime(minutes: instruction.time)
 
-                                                //Create a Local Data Formatter
-                                                let formatter = DateFormatter()
-                                                formatter.dateFormat = "dd MMMM, yyyy - HH:mm:ss"
-                                                formatter.timeZone = TimeZone.current
+                                            // FOR VISUAL FX ONLY
+                                            self.buttonPressed = true
 
-                                                let localTime = formatter.string(from: SharedDataManager.shared.targetTime)
+                                            // FOR ALERT ONLY
+                                            self.showingAlert = true
 
-                                                //For Debug Only
-                                                print("Scheduling Notification \(localTime)")
+                                            //MARK: FOR DEBUG ONLY - MAY KEEP THIS DISABLE IF U WANT
+                                            //MARK: Print the in console the TargetTime for preparationInstructions
+                                            SharedDataManager.shared.getFormattedTargetTime()
 
-                                                // Start Live Activity
-                                                let attributes = TimeTrackingAttributes()
-                                                let state = TimeTrackingAttributes.ContentState(recipe: recipe)
+                                            /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                                             *                    ENABLE NOTIFICATION CENTER                     *
+                                             * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-                                                activity = try? Activity<TimeTrackingAttributes>.request(attributes: attributes, contentState: state, pushType: nil)
+                                            // Start a timer based on recipe.preparationTime (converted to seconds)
+                                            let deadline = instruction.time * 10
 
-                                                ActivityManager.shared.activity = activity
-                                                ActivityManager.shared.recipe = recipe
+                                            // Call Notification Center
+                                            LocalNotificationManager.shared.scheduleNotification(title: "Seu preparo está pronto!", body: "Toque para abrir o app.", timeInterval: TimeInterval(deadline))
 
-                                                // Start a timer based on recipe.preparationTime (converted to seconds)
-                                                let deadline = DispatchTime.now() + .seconds(instruction.time * 60)
+                                            /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                                             *                          ENABLE LIVE ACTIVITY                     *
+                                             * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-                                                // Update button state
-                                                self.buttonPressed = true
+                                            // Start Live Activity
+                                            // LACK OF DOCUMENTATION - COMPLETAMENTE BUGADO
+                                            let attributes = TimeTrackingAttributes()
+                                            // Pass selected instruction to state for the activity
+                                            let state = TimeTrackingAttributes.ContentState(recipe: recipe, instruction: instruction)
+                                            activity = try? Activity<TimeTrackingAttributes>.request(attributes: attributes, contentState: state, pushType: nil)
 
-                                                // Show the alert.
-                                                self.showingAlert = true
+                                            ActivityManager.shared.activity = activity
 
+                                            ActivityManager.shared.recipe = recipe
 
-                                                DispatchQueue.main.asyncAfter(deadline: deadline) {
+                                        } else {
 
-                                                    if workingOnRecipeManager.isWorkingOnRecipe {
-                                                        print ("Recipe Complete - Show Notification")
-                                                        LocalNotificationManager.shared.scheduleNotification(title: "Seu preparo está pronto!", body: "Toque para abrir o app.", timeInterval: 1)
-                                                    }
-                                                }
+                                            print("[DEBUG / RecipeView.swift]: Cancel button pressed;\n")
+                                            // FOR VISUAL FX ONLY
+                                            self.buttonPressed = false
 
-                                            }
-                                        else {
+                                            /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                                             *                    DISABLE NOTIFICATION CENTER                     *
+                                             * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+                                            print("[DEBUG / RecipeView.swift]: Removing All Pending Notification Requests\n")
 
-                                                // Cancel all notifications if preparation is stopped
-                                                print("Cancel Button Pressed - Removing all pending notifications requests")
-                                                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                                            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
 
-                                                // Cancell all live activity if preparation is stopped
-                                                let state = TimeTrackingAttributes.ContentState(recipe: recipe)
+                                            /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                                             *                    DISABLE LIVE ACTIVITIES                          *
+                                             * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+                                            ActivityManager.shared.endActivity()
 
-                                                // Cancel the timer text notification
-                                                self.buttonPressed = false
-
-                                                Task {
-                                                    print("Dismissing all live activity")
-                                                    await activity?.end(using: state, dismissalPolicy: .immediate)
-                                                }
-                                                //self.startTime = nil
-
-                                                print ("Ending All Activities")
-                                                ActivityManager.shared.endActivity()
-                                            
-                                            }
-                                        })
+                                        }
+                                    })
 
                                     .padding(.bottom,5)
                                     .alert(isPresented: $showingAlert) {

@@ -65,7 +65,7 @@ struct TimeTrackingWidgetView: View {
         }
         .padding()
         .onAppear {
-            let preparationTime = context.state.recipe.preparationTime
+            let preparationTime = context.state.instruction?.time ?? 0 // use the instruction's time
             SharedDataManager.shared.setTargetTime(minutes: preparationTime)
         }
     }

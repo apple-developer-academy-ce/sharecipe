@@ -14,5 +14,8 @@ struct TimeTrackingAttributes: ActivityAttributes {
 
     public struct ContentState: Codable, Hashable {
         var recipe: Recipe
+        var instruction: Instruction? // added this
+
     }
 }
+

@@ -1,5 +1,5 @@
 import Foundation
-
+//TIME FOR PREPARATIONS SHOULD BE IN MINUTES
 struct RecipeData {
     static let cookingLevels: [CookingLevel] = [
 
@@ -16,7 +16,7 @@ struct RecipeData {
                 preparationInstructions: [
                     Instruction(step: "1. Encha o copo com água", time: 0),
                     Instruction(step: "2. Corte o limão em rodelas e bote no copo com água", time: 0),
-                    Instruction(step: "3. Beba", time: 0)
+                    Instruction(step: "3. Beba", time: 1)
                 ]
             ),
             Recipe(
