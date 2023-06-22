@@ -8,8 +8,14 @@ struct RecipeView: View {
     var recipe: Recipe
 
     //@State private var isTrackingTime: Bool = false
-    @State private var startTime: Date? = nil
+    //@State private var startTime: Date? = nil
     @State private var activity: Activity<TimeTrackingAttributes>? = nil
+    @State private var showingAlert = false
+    @State private var buttonPressed = false
+    @State private var selectedButtonID: UUID? = nil
+
+
+
 
     // Define the grid layout: 3 columns of flexible width.
     let gridLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
@@ -175,80 +181,134 @@ struct RecipeView: View {
                             VStack() {
                                 Text("Modo de Preparo")
                                     .bold()
+                                if buttonPressed {
+                                    Text("Lembrete definido para \(SharedDataManager.shared.targetTime).")
+                                        .multilineTextAlignment(.center)
+                                        .font(.callout)
+                                        .foregroundColor(.red)
+                                }
+                                else {
+                                    Text("Pressione o relógio para ativar lembrete.")
+                                        .multilineTextAlignment(.center)
+                                        .foregroundColor(Color(.systemGray))
+                                        .font(.callout)
+                                }
+
                             }
                             .frame(maxWidth: .infinity)
                         }
                         .padding(.bottom,10)
 
                         VStack(alignment: .leading) {
-                            ForEach(recipe.preparationInstructions, id: \.self) { preparationInstructions in
-                                Text(preparationInstructions)
-                                    .font(.subheadline)
-                                    .padding(.leading,10)
+                            
+                            ForEach(recipe.preparationInstructions, id: \.self) { instruction in
+
+                                if instruction.time != 0 {
+
+                                    HStack {
+                                        Text("\(instruction.step)")
+                                            .font(.subheadline)
+                                            .foregroundColor(.blue)
+                                        Image(systemName: "clock")
+                                            .foregroundColor(.blue)
+                                    }
+
+
+                                    .frame(alignment: .leading) // Align the text to the leading edge
+                                    .scaleEffect(buttonPressed && instruction.id == selectedButtonID ? 1.3 : 1.0, anchor: .leading)
+                                    .animation(.easeInOut) // animate the scale effect
+                                    .gesture(LongPressGesture(minimumDuration: 0.5).onEnded { _ in
+
+                                        let generator = UIImpactFeedbackGenerator(style: .heavy)
+
+                                        generator.impactOccurred()
+
+                                        workingOnRecipeManager.isWorkingOnRecipe.toggle()
+
+                                        //Getting the button UUID
+                                        self.selectedButtonID = instruction.id
+
+                                        if workingOnRecipeManager.isWorkingOnRecipe {
+
+                                                //Passing TargetTime to DataManager (Global)
+                                                SharedDataManager.shared.setTargetTime(minutes: instruction.time)
+
+                                                //Create a Local Data Formatter
+                                                let formatter = DateFormatter()
+                                                formatter.dateFormat = "dd MMMM, yyyy - HH:mm:ss"
+                                                formatter.timeZone = TimeZone.current
+
+                                                let localTime = formatter.string(from: SharedDataManager.shared.targetTime)
+
+                                                //For Debug Only
+                                                print("Scheduling Notification \(localTime)")
+
+                                                // Start Live Activity
+                                                let attributes = TimeTrackingAttributes()
+                                                let state = TimeTrackingAttributes.ContentState(recipe: recipe)
+
+                                                activity = try? Activity<TimeTrackingAttributes>.request(attributes: attributes, contentState: state, pushType: nil)
+
+                                                ActivityManager.shared.activity = activity
+                                                ActivityManager.shared.recipe = recipe
+
+                                                // Start a timer based on recipe.preparationTime (converted to seconds)
+                                                let deadline = DispatchTime.now() + .seconds(instruction.time * 60)
+
+                                                // Update button state
+                                                self.buttonPressed = true
+
+                                                // Show the alert.
+                                                self.showingAlert = true
+
+
+                                                DispatchQueue.main.asyncAfter(deadline: deadline) {
+
+                                                    if workingOnRecipeManager.isWorkingOnRecipe {
+                                                        print ("Recipe Complete - Show Notification")
+                                                        LocalNotificationManager.shared.scheduleNotification(title: "Seu preparo está pronto!", body: "Toque para abrir o app.", timeInterval: 1)
+                                                    }
+                                                }
+
+                                            }
+                                        else {
+
+                                                // Cancel all notifications if preparation is stopped
+                                                print("Cancel Button Pressed - Removing all pending notifications requests")
+                                                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+
+                                                // Cancell all live activity if preparation is stopped
+                                                let state = TimeTrackingAttributes.ContentState(recipe: recipe)
+
+                                                // Cancel the timer text notification
+                                                self.buttonPressed = false
+
+                                                Task {
+                                                    print("Dismissing all live activity")
+                                                    await activity?.end(using: state, dismissalPolicy: .immediate)
+                                                }
+                                                //self.startTime = nil
+
+                                                print ("Ending All Activities")
+                                                ActivityManager.shared.endActivity()
+                                            }
+                                        })
+                                    .padding(.bottom,5)
+                                    .alert(isPresented: $showingAlert) {
+                                        Alert(title: Text("Você iniciou um preparo!"), message: Text("Este estágio ficará pronto em \(instruction.time) minuto(s)."), dismissButton: .default(Text("Ok!")))
+                                    }
+                                } else {
+                                    Text(instruction.step)
+                                        .font(.subheadline)
+                                        .padding(.bottom,5)
+                                        //.padding(.leading,10)
+                                }
                             }
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
-
-                        VStack {
-                            Button {
-                                workingOnRecipeManager.isWorkingOnRecipe.toggle()
-                                if workingOnRecipeManager.isWorkingOnRecipe {
-                                    startTime = .now
-
-                                    print ("Scheduling Notification \(SharedDataManager.shared.targetTime)")
-
-                                    // Start Live Activity
-                                    let attributes = TimeTrackingAttributes()
-                                    let state = TimeTrackingAttributes.ContentState(recipe: recipe)
-
-                                    activity = try? Activity<TimeTrackingAttributes>.request(attributes: attributes, contentState: state, pushType: nil)
-
-                                    ActivityManager.shared.activity = activity
-                                    ActivityManager.shared.recipe = recipe
-
-                                    // Start a timer based on recipe.preparationTime (converted to seconds)
-                                    let deadline = DispatchTime.now() + .seconds(recipe.preparationTime * 60)
-
-                                    DispatchQueue.main.asyncAfter(deadline: deadline) {
-
-                                        if workingOnRecipeManager.isWorkingOnRecipe {
-                                            print ("Recipe Complete - Show Notification")
-                                            LocalNotificationManager.shared.scheduleNotification(title: "Seu preparo está pronto!", body: "Toque para abrir o app.", timeInterval: 1)
-                                        }
-                                    }
-                                } else {
-
-                                    // Cancel all notifications if preparation is stopped
-                                    print("Cancel Button Pressed - Removing all pending notifications requests")
-                                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-
-                                    // Cancell all live activity if preparation is stopped
-                                    let state = TimeTrackingAttributes.ContentState(recipe: recipe)
-
-                                    Task {
-                                        print("Dismissing all live activity")
-                                        await activity?.end(using: state, dismissalPolicy: .immediate)
-                                    }
-                                    self.startTime = nil
-
-                                    print ("Ending All Activities")
-                                    ActivityManager.shared.endActivity()
-                                }
-                            } label: {
-                                Text(workingOnRecipeManager.isWorkingOnRecipe ? "PARAR" : "INICIAR PREPARO")
-                                    //.shadow(color: colorScheme == .dark ? .gray : .clear, radius: 3, x: 0, y: 0)
-                                    .foregroundColor(colorScheme == .dark ? .black : .white)
-                                    .font(UIDevice.current.userInterfaceIdiom == .phone ? .title3.weight(.semibold) : .title.weight(.semibold))
-                                    .frame(width: UIDevice.current.userInterfaceIdiom == .phone ? 200 : 350, height: UIDevice.current.userInterfaceIdiom == .phone ? 40 : 70)
-                                    .background(Rectangle().fill(workingOnRecipeManager.isWorkingOnRecipe ? .red : .yellow))
-                                    .cornerRadius(20)
-                            }
-                            .padding(.top,10)
-                            .padding(.bottom,30)
-
-                        }
                     }
                 }
+                .padding()
                 .padding(.bottom,-10)
 
                 Spacer()

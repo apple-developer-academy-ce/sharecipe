@@ -7,6 +7,12 @@
 
 import Foundation
 
+struct Instruction: Codable, Hashable {
+    let id = UUID()
+    let step: String
+    let time: Int
+}
+
 struct Recipe: Identifiable, Equatable, Codable, Hashable {
     let id = UUID()
     let name: String
@@ -17,7 +23,7 @@ struct Recipe: Identifiable, Equatable, Codable, Hashable {
     let portion: String
     let tools: [String]
     let ingredients: [String]
-    let preparationInstructions: [String]
+    let preparationInstructions: [Instruction]
 
     static func == (lhs: Recipe, rhs: Recipe) -> Bool {
         return lhs.id == rhs.id
