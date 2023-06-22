@@ -39,7 +39,9 @@ struct RecipeView: View {
                         .frame(maxWidth: .infinity)
 
                     Text(recipe.name)
-                        .font(.title)
+                        .font(.custom("HV-Cocktail-Regular", size: UIDevice.current.userInterfaceIdiom == .phone ? 32 : 64))
+//                        .font(.title)
+//                        .fontWeight(.bold)
                         .multilineTextAlignment(.center)
                         .padding(.bottom,5)
                     Divider()
