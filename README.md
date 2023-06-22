@@ -1,5 +1,5 @@
 # Sharecipe
-![SharecipeGithub](https://github.com/apple-developer-academy-ce/sharecipe/assets/9482093/f7a811c0-f71f-4d03-9677-51a7821599ac)
+![Screenshot_2023-06-22_at_14 1](https://github.com/apple-developer-academy-ce/sharecipe/assets/9482093/0411810a-24c9-449a-ab29-581b40542141)
 
 
 ### 1. Big Idea
