@@ -40,8 +40,7 @@ struct RecipeView: View {
 
                     Text(recipe.name)
                         .font(.custom("HV-Cocktail-Regular", size: UIDevice.current.userInterfaceIdiom == .phone ? 32 : 64))
-//                        .font(.title)
-//                        .fontWeight(.bold)
+
                         .multilineTextAlignment(.center)
                         .padding(.bottom,5)
                     Divider()
@@ -347,17 +346,5 @@ struct RecipeView: View {
 
         .toolbarBackground(Color(.systemGray6).opacity(0.0), for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
-        .toolbar {
-
-            ToolbarItem(placement: .principal) {
-            }
-
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-            }
-
-
-            ToolbarItemGroup(placement: .bottomBar) {
-            }
-        }
     }
 }

@@ -12,20 +12,6 @@ import AVFoundation
 
 struct TimeTracker_Widget: Widget {
 
-// Pra saber o tempo que falta é só pegar o targetTime - .now() = tempo que falta em minutos
-//    var timeDifference: String {
-//            let targetTime = SharedDataManager.shared.targetTime
-//            let currentTime = Date()
-//
-//            let interval = Calendar.current.dateComponents([.hour, .minute, .second], from: currentTime, to: targetTime)
-//
-//            guard let hour = interval.hour, let minute = interval.minute, let second = interval.second else {
-//                return "Calculating..."
-//            }
-//
-//            return String(format: "%02d:%02d:%02d", hour, minute, second)
-//        }
-
     var formattedTargetTime: String {
             let formatter = DateFormatter()
             formatter.timeStyle = .short

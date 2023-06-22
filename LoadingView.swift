@@ -3,16 +3,6 @@ import SwiftUI
 struct LoadingView: View {
     @State private var enableHomeView = false
 
-//    init(){
-//        for familyName in UIFont.familyNames {
-//            print(familyName)
-//
-//            for fontName in UIFont.fontNames(forFamilyName: familyName) {
-//                print ("\(fontName)")
-//            }
-//        }
-//    }
-
     var body: some View {
 
         ZStack {
