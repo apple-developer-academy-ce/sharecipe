@@ -3,6 +3,8 @@ import AVFoundation
 
 @main
 struct SharecipeApp: App {
+
+    //TODO: FAZ SENTIDO? POR QUE NÃO COLOCA TUDO DENTRO DE SHAREDDATAMANAGER?
     @StateObject var workingOnRecipeManager = WorkingOnRecipeManager() //Calls Modules
 
     init() {

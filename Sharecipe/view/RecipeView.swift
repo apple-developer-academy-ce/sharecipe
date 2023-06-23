@@ -11,8 +11,8 @@ struct RecipeView: View {
     //@State private var startTime: Date? = nil
     @State private var activity: Activity<TimeTrackingAttributes>? = nil
     @State private var showingAlert = false
-    @State private var buttonPressed = false
-    @State private var selectedButtonID: UUID? = nil
+    //@State private var buttonPressed = false
+    //@State private var selectedButtonID: UUID? = nil
 
 
 
@@ -42,9 +42,9 @@ struct RecipeView: View {
                         .font(.custom("HV-Cocktail-Regular", size: UIDevice.current.userInterfaceIdiom == .phone ? 32 : 64))
 
                         .multilineTextAlignment(.center)
-                        .padding(.bottom,5)
-                    Divider()
                 }
+
+                Divider()
 
                 ScrollView {
 
@@ -185,11 +185,25 @@ struct RecipeView: View {
                                         .bold()
                                 }
                                 VStack {
-                                    if buttonPressed {
-                                        Text("Lembrete definido para \(SharedDataManager.shared.targetTime).")
-                                            .multilineTextAlignment(.center)
-                                            .font(.callout)
-                                            .foregroundColor(.red)
+                                    if SharedDataManager.shared.buttonPressed {
+                                        if (SharedDataManager.shared.recipe?.id == recipe.id) {
+                                            Text("Lembrete definido para \(SharedDataManager.shared.targetTime).")
+                                                .multilineTextAlignment(.center)
+                                                .font(.callout)
+                                                .foregroundColor(.red)
+                                        } else {
+                                            
+                                            (
+                                            Text("Você já possui uma receita em andamento. Por favor, finalize sua receita anterior antes de iniciar uma nova. ")
+                                                .foregroundColor(Color(.systemGray))
+                                            +
+
+                                            Text("Receita: \(SharedDataManager.shared.recipe?.level ?? "Unknow Recipe") de \(SharedDataManager.shared.recipe?.name ?? "Unknow Recipe").")
+                                                .foregroundColor(.red)
+                                            )
+                                                .multilineTextAlignment(.leading)
+                                                .font(.callout)
+                                        }
                                     }
                                     else {
                                         Text("Dica: pressione o relógio para ativar lembrete.")
@@ -198,7 +212,7 @@ struct RecipeView: View {
                                             .font(.callout)
                                     }
                                 }
-                                .scaleEffect(buttonPressed ? 1.1 : 1.0) // add a scale effect for button pressed
+                                .scaleEffect(SharedDataManager.shared.buttonPressed ? 1.0 : 1.0) // add a scale effect for button pressed
                                 .animation(.easeInOut) // animate the scale effect
                                 .frame(maxWidth: .infinity)
                             }
@@ -214,22 +228,24 @@ struct RecipeView: View {
 
                                     HStack {
                                         Text("\(instruction.step)")
-                                            .font(buttonPressed && instruction.id == selectedButtonID ? .title : .subheadline) // Dynamically change font size
-                                            .foregroundColor(buttonPressed && instruction.id == selectedButtonID ? .red : .blue)
+                                            // Dynamically change font size
+                                            .font(SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ? .title3 : .subheadline)
+                                            .fontWeight(SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ? .bold : .regular)
+                                            .foregroundColor(SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ? .red : .blue)
                                             .lineLimit(nil) // This allows the text to wrap onto as many lines as needed
                                             .fixedSize(horizontal: false, vertical: true) // This allows the text view to expand vertically to fit the text
                                             .transition(.scale) // Add transition for smoother change
-                                            .animation(.easeInOut, value: buttonPressed && instruction.id == selectedButtonID) // Apply animation
+                                            .animation(.easeInOut, value: SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ) // Apply animation
 
 
-                                        if (buttonPressed && instruction.id == selectedButtonID) {
+                                        if (SharedDataManager.shared.buttonPressed  && instruction.id == SharedDataManager.shared.selectedButtonID) {
                                             ProgressView()
                                                 .padding(.leading,3)
                                                 .tint(.red)
 
                                         } else {
                                             Image(systemName: "clock")
-                                            .foregroundColor(buttonPressed && instruction.id == selectedButtonID ? .red : .blue)
+                                            .foregroundColor(SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ? .red : .blue)
                                         }
 
                                     }
@@ -241,8 +257,6 @@ struct RecipeView: View {
                                         //INVERTE A SITUACAO DO BOTAO PARA VERDADEIRO OU FALSOE
                                         workingOnRecipeManager.isWorkingOnRecipe.toggle()
 
-                                        //Getting the button UUID
-                                        self.selectedButtonID = instruction.id
 
                                         //SE O USUARIO INICIOU UMA ETAPA DE RECEITA, ATIVA TUDO
                                         //MARK: ACTIVE ALL
@@ -251,8 +265,10 @@ struct RecipeView: View {
                                             //Passing TargetTime to DataManager (Global)
                                             SharedDataManager.shared.setTargetTime(minutes: instruction.time)
 
-                                            // FOR VISUAL FX ONLY
-                                            self.buttonPressed = true
+                                            // FOR VISUAL FX AND DATA CONTROL
+                                            SharedDataManager.shared.setButtonPressed(isPressed: true)
+                                            SharedDataManager.shared.setSelectedButtonID(id: instruction.id)
+                                            SharedDataManager.shared.setRecipe(recipe: recipe)
 
                                             // FOR ALERT ONLY
                                             self.showingAlert = true
@@ -266,7 +282,7 @@ struct RecipeView: View {
                                              * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
                                             // Start a timer based on recipe.preparationTime (converted to seconds)
-                                            let deadline = instruction.time * 10
+                                            let deadline = instruction.time * 60
 
                                             // Call Notification Center
                                             LocalNotificationManager.shared.scheduleNotification(title: "Seu preparo está pronto!", body: "Toque para abrir o app.", timeInterval: TimeInterval(deadline))
@@ -289,8 +305,10 @@ struct RecipeView: View {
                                         } else {
 
                                             print("[DEBUG / RecipeView.swift]: Cancel button pressed;\n")
-                                            // FOR VISUAL FX ONLY
-                                            self.buttonPressed = false
+                                            // FOR VISUAL FX AND DATA CONTROL
+                                            SharedDataManager.shared.setButtonPressed(isPressed: false)
+                                            SharedDataManager.shared.setSelectedButtonID(id: nil)
+                                            SharedDataManager.shared.setRecipe(recipe: nil)
 
                                             /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
                                              *                    DISABLE NOTIFICATION CENTER                     *
@@ -322,7 +340,8 @@ struct RecipeView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
-                .padding()
+                .padding(.leading)
+                .padding(.trailing)
                 .padding(.bottom,-10)
 
                 Spacer()
@@ -342,5 +361,18 @@ struct RecipeView: View {
 
         .toolbarBackground(Color(.systemGray6).opacity(0.0), for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
+//        .toolbar {
+//            ToolbarItemGroup(placement: .navigation) {
+//                Button("First") {
+//                    print("Pressed")
+//                }
+//
+//                Spacer()
+//
+//                Button("Second") {
+//                    print("Pressed")
+//                }
+//            }
+//        }
     }
 }

@@ -13,6 +13,14 @@ class SharedDataManager: ObservableObject {
 
     @Published var targetTime: Date = Date()
 
+    //For Page Persistance
+    @Published var buttonPressed: Bool = false
+    @Published var selectedButtonID: UUID? = nil
+
+    //For Recipe Persistance
+    @Published var recipe: Recipe? = nil  // This will hold your current recipe
+
+
     private init() {}
 
     func setTargetTime(minutes: Int) {
@@ -38,4 +46,17 @@ class SharedDataManager: ObservableObject {
 
         return localTime
     }
+
+    func setButtonPressed(isPressed: Bool) {
+        self.buttonPressed = isPressed
+    }
+
+    func setSelectedButtonID(id: UUID?) {
+        self.selectedButtonID = id
+    }
+
+    func setRecipe(recipe: Recipe?) {
+        self.recipe = recipe
+    }
+    
 }
