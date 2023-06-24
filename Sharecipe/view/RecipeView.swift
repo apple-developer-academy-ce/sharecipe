@@ -11,6 +11,7 @@ struct RecipeView: View {
     //@State private var startTime: Date? = nil
     @State private var activity: Activity<TimeTrackingAttributes>? = nil
     @State private var showingAlert = false
+
     //@State private var buttonPressed = false
     //@State private var selectedButtonID: UUID? = nil
 
@@ -192,17 +193,32 @@ struct RecipeView: View {
                                                 .font(.callout)
                                                 .foregroundColor(.red)
                                         } else {
-                                            
-                                            (
-                                            Text("Você já possui uma receita em andamento. Por favor, finalize sua receita anterior antes de iniciar uma nova. ")
-                                                .foregroundColor(Color(.systemGray))
-                                            +
+                                            NavigationLink(destination: RecipeView(recipe: SharedDataManager.shared.recipe!)) {
+                                                HStack {
 
-                                            Text("Receita: \(SharedDataManager.shared.recipe?.level ?? "Unknow Recipe") de \(SharedDataManager.shared.recipe?.name ?? "Unknow Recipe").")
-                                                .foregroundColor(.red)
-                                            )
-                                                .multilineTextAlignment(.leading)
-                                                .font(.callout)
+                                                   Image(systemName: "eye.trianglebadge.exclamationmark.fill")
+                                                    
+                                                       .resizable()
+                                                       .frame(width: 55, height: 30)
+                                                       .foregroundColor(.yellow)
+
+                                                   (
+                                                       Text("Você já possui uma receita em andamento. Por favor, finalize sua receita anterior antes de iniciar uma nova. ")
+                                                           .foregroundColor(Color(.systemGray))
+                                                       +
+
+                                                       Text("Receita de Nível \(SharedDataManager.shared.recipe?.level ?? "Unknow Recipe"),  \(SharedDataManager.shared.recipe?.name ?? "Unknow Recipe"). ")
+                                                           .foregroundColor(.red)
+
+                                                       +
+
+                                                       Text("Toque para ver a receita em andamento...")
+                                                           .foregroundColor(Color(.systemGray))
+                                                   )
+                                                   .multilineTextAlignment(.leading)
+                                                   .font(.callout)
+                                               }
+                                            }
                                         }
                                     }
                                     else {
@@ -223,10 +239,14 @@ struct RecipeView: View {
                         VStack(alignment: .leading) {
                             
                             ForEach(recipe.preparationInstructions, id: \.self) { instruction in
+                                
 
-                                if instruction.time != 0 {
+//                                if (instruction.time != 0 && (SharedDataManager.shared.buttonPressed == true && (SharedDataManager.shared.recipe?.id == recipe.id && SharedDataManager.shared.recipe?.id == nil))) {
+
+                                if (instruction.time != 0 && SharedDataManager.shared.buttonPressed == false) {
 
                                     HStack {
+                                        
                                         Text("\(instruction.step)")
                                             // Dynamically change font size
                                             .font(SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ? .title3 : .subheadline)

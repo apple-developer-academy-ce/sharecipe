@@ -110,21 +110,6 @@ struct RecipeData {
         ]),
         CookingLevel(name: "Médio", recipes: [
             Recipe(
-                name: "Copo D'água com Limão",
-                cardImage: "cardCopoDagua",
-                recipeImage: "recipeCopoDagua",
-                preparationTime: 1,
-                level: "Simples",
-                portion: "10 porções",
-                tools: ["01 Copo", "01 Faca"],
-                ingredients: ["200ml de Água", "1 Limão"],
-                preparationInstructions: [
-                    Instruction(step: "1. Encha o copo com água", time: 0),
-                    Instruction(step: "2. Corte o limão em rodelas e bote no copo com água", time: 0),
-                    Instruction(step: "3. Beba", time: 0)
-                ]
-            ),
-            Recipe(
                 name: "Bolo Fofo",
                 cardImage: "cardBoloFofo",
                 recipeImage: "recipeBoloFofo",
