@@ -24,6 +24,7 @@
 		85366F7E2A2F706400FF327D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85366F7D2A2F706400FF327D /* Assets.xcassets */; };
 		85366F812A2F706400FF327D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85366F802A2F706400FF327D /* Preview Assets.xcassets */; };
 		85366F8D2A2F710200FF327D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85366F8C2A2F710200FF327D /* LoadingView.swift */; };
+		85884F422A4A1641005CEA63 /* RecipeView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85884F412A4A1641005CEA63 /* RecipeView2.swift */; };
 		85893F192A3B718B009D4B7E /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85893F182A3B718B009D4B7E /* LocalNotificationManager.swift */; };
 		85893F1A2A3B718B009D4B7E /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85893F182A3B718B009D4B7E /* LocalNotificationManager.swift */; };
 		85893F1C2A3B8257009D4B7E /* ActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85893F1B2A3B8257009D4B7E /* ActivityManager.swift */; };
@@ -89,6 +90,7 @@
 		85366F7D2A2F706400FF327D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		85366F802A2F706400FF327D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		85366F8C2A2F710200FF327D /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = SOURCE_ROOT; };
+		85884F412A4A1641005CEA63 /* RecipeView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView2.swift; sourceTree = "<group>"; };
 		85893F182A3B718B009D4B7E /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
 		85893F1B2A3B8257009D4B7E /* ActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityManager.swift; sourceTree = "<group>"; };
 		85893F1E2A3B8691009D4B7E /* WorkingOnRecipeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingOnRecipeManager.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				85C9E2122A40A16200D84674 /* MedioView.swift */,
 				85C9E2142A40A16E00D84674 /* ElaboradoView.swift */,
 				852080A22A2F718900DB9ADC /* RecipeView.swift */,
+				85884F412A4A1641005CEA63 /* RecipeView2.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				851C5C462A4322D1006B0BB9 /* SharedDataManager.swift in Sources */,
+				85884F422A4A1641005CEA63 /* RecipeView2.swift in Sources */,
 				852080A12A2F717400DB9ADC /* SimplesView.swift in Sources */,
 				85366F7A2A2F706300FF327D /* SharecipeApp.swift in Sources */,
 				85893F1F2A3B8691009D4B7E /* WorkingOnRecipeManager.swift in Sources */,

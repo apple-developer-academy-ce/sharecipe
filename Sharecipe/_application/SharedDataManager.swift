@@ -16,7 +16,7 @@ class SharedDataManager: ObservableObject {
 
     //For Page Persistance
     @Published var buttonPressed: Bool = false
-    @Published var selectedButtonID: UUID? = nil
+    @Published var instructionId: UUID? = nil
 
     //For Recipe Persistance
     @Published var recipe: Recipe? = nil  // This will hold your current recipe
@@ -53,48 +53,11 @@ class SharedDataManager: ObservableObject {
     }
 
     func setSelectedButtonID(id: UUID?) {
-        self.selectedButtonID = id
+        self.instructionId = id
     }
 
     func setRecipe(recipe: Recipe?) {
         self.recipe = recipe
-    }
-
-    // In SharedDataManager
-    func formattedInstructionText(for instruction: Instruction, condition: Int) -> some View {
-        switch condition {
-        case 1:
-            return AnyView(Text("\(instruction.step)")
-                .font(.subheadline)
-                .fontWeight(.regular)
-            )
-        case 2:
-            return AnyView(Text("\(instruction.step)")
-                .font(.subheadline)
-                .fontWeight(.regular)
-                .foregroundColor(.blue)
-            )
-        case 3:
-            return AnyView(Text("\(instruction.step)")
-                .font(.title3)
-                .fontWeight(.bold)
-                .foregroundColor(.red)
-            )
-        case 4:
-            return AnyView(Text("\(instruction.step)")
-                .font(.subheadline)
-                .fontWeight(.regular)
-            )
-        default:
-            return AnyView(Text("\(instruction.step)")
-                .font(.subheadline)
-                .fontWeight(.regular)
-                .foregroundColor(.blue)
-                .lineLimit(nil)
-                .fixedSize(horizontal: false, vertical: true)
-                .scaleEffect(1)
-                .animation(.easeInOut, value: condition == 0))
-        }
     }
 
     func getAlert(for instruction: Instruction) -> Alert {
