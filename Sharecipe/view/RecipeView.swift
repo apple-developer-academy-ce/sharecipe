@@ -235,241 +235,275 @@ struct RecipeView: View {
                     }
                     .padding()
                     .padding(.bottom,10)
-                    
+                }
+
+                //Instruções de Preparo
+                Group {
                     VStack(alignment: .leading) {
-                        
+
+                        //INIT OF ForEach
                         ForEach(recipe.preparationInstructions, id: \.self) { instruction in
-                            
-                            
-                        //if (instruction.time != 0 && (SharedDataManager.shared.buttonPressed == true && (SharedDataManager.shared.recipe?.id == recipe.id && SharedDataManager.shared.recipe?.id == nil))) {
 
+                            //TODO: BUG FOUND
+                            //MARK: DESCOBRIR COMO RESOLVER - PROBLEMA NO ANIMATION
+                            //MARK: APOS ATUALIZAR O SHARED.BUTTONPRESSED, APLICACAO ENTRA NO OUTRO IF (ELSE IF) ????
                             //Se o tempo de preparo for diferente de zero e o botão de iniciar preparo não tiver sido precionado, isso implica que não existe nenhuma receita ativa, logo mostra o texto normalmente.
-                            if (instruction.time != 0 && SharedDataManager.shared.buttonPressed == false) {
+
                                 HStack {
 
-                                    Text("\(instruction.step)")
-                                    // Dynamically change font size
-                                        .font(SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ? .title3 : .subheadline)
-                                        .fontWeight(SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ? .bold : .regular)
-                                        .foregroundColor(SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ? .red : .blue)
-                                        .lineLimit(nil) // This allows the text to wrap onto as many lines as needed
-                                        .fixedSize(horizontal: false, vertical: true) // This allows the text view to expand vertically to fit the text
-                                        .transition(.scale) // Add transition for smoother change
-                                        .animation(.easeInOut, value: SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ) // Apply animation
+                                    if (instruction.time == 0) {
+                                        SharedDataManager.shared.formattedInstructionText(for: instruction, condition: 1)
+                                    }
+
+                                    if (instruction.time != 0) {
+
+                                        if (SharedDataManager.shared.buttonPressed == false) {
+
+                                            SharedDataManager.shared.formattedInstructionText(for: instruction, condition: 2)
+
+                                            Image(systemName: "clock")
+                                                .foregroundColor(.blue)
+                                        }
+
+                                        if (SharedDataManager.shared.buttonPressed == true) {
 
 
-                                    if (SharedDataManager.shared.buttonPressed  && instruction.id == SharedDataManager.shared.selectedButtonID) {
-                                        ProgressView()
-                                            .padding(.leading,3)
-                                            .tint(.red)
+                                            if(instruction.id == SharedDataManager.shared.selectedButtonID) {
 
-                                    } else {
-                                        Image(systemName: "clock")
-                                            .foregroundColor(SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ? .red : .blue)
+                                                SharedDataManager.shared.formattedInstructionText(for: instruction, condition: 3)
+
+                                                ProgressView()
+                                                    .padding(.leading,3)
+                                                    .tint(.red)
+                                            }
+
+                                            else {
+                                                SharedDataManager.shared.formattedInstructionText(for: instruction, condition: 4)
+
+                                                Image(systemName: "clock")
+
+                                            }
+                                        }
+
                                     }
 
                                 }
+                                .padding(.bottom,5)
+
+                                .alert(isPresented: $showingAlert) { SharedDataManager.shared.getAlert(for: instruction) }
+
                                 .gesture(LongPressGesture(minimumDuration: 0.5).onEnded { _ in
 
-                                    let generator = UIImpactFeedbackGenerator(style: .heavy)
-                                    generator.impactOccurred()
+                                    if (SharedDataManager.shared.recipe?.id == nil || recipe.id == SharedDataManager.shared.recipe?.id) {
+                                            let generator = UIImpactFeedbackGenerator(style: .heavy)
+                                            generator.impactOccurred()
 
-                                    //INVERTE A SITUACAO DO BOTAO PARA VERDADEIRO OU FALSOE
-                                    workingOnRecipeManager.isWorkingOnRecipe.toggle()
+                                            //INVERTE A SITUACAO DO BOTAO PARA VERDADEIRO OU FALSOE
+                                            workingOnRecipeManager.isWorkingOnRecipe.toggle()
 
 
-                                    //SE O USUARIO INICIOU UMA ETAPA DE RECEITA, ATIVA TUDO
-                                    //MARK: ACTIVE ALL
-                                    if workingOnRecipeManager.isWorkingOnRecipe {
+                                            //SE O USUARIO INICIOU UMA ETAPA DE RECEITA, ATIVA TUDO
+                                            //MARK: ACTIVE ALL
+                                            if workingOnRecipeManager.isWorkingOnRecipe {
 
-                                        //Passing TargetTime to DataManager (Global)
-                                        SharedDataManager.shared.setTargetTime(minutes: instruction.time)
+                                                //Passing TargetTime to DataManager (Global)
+                                                SharedDataManager.shared.setTargetTime(minutes: instruction.time)
 
-                                        // FOR VISUAL FX AND DATA CONTROL
-                                        SharedDataManager.shared.setButtonPressed(isPressed: true)
-                                        SharedDataManager.shared.setSelectedButtonID(id: instruction.id)
-                                        SharedDataManager.shared.setRecipe(recipe: recipe)
+                                                // FOR VISUAL FX AND DATA CONTROL
+                                                SharedDataManager.shared.setButtonPressed(isPressed: true)
+                                                SharedDataManager.shared.setSelectedButtonID(id: instruction.id)
+                                                SharedDataManager.shared.setRecipe(recipe: recipe)
 
-                                        // FOR ALERT ONLY
-                                        self.showingAlert = true
+                                                // FOR ALERT ONLY
+                                                self.showingAlert = true
 
-                                        //MARK: FOR DEBUG ONLY - MAY KEEP THIS DISABLE IF U WANT
-                                        //MARK: Print the in console the TargetTime for preparationInstructions
-                                        SharedDataManager.shared.getFormattedTargetTime()
+                                                //MARK: FOR DEBUG ONLY - MAY KEEP THIS DISABLE IF U WANT
+                                                //MARK: Print the in console the TargetTime for preparationInstructions
+                                                SharedDataManager.shared.getFormattedTargetTime()
 
-                                        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-                                         *                    ENABLE NOTIFICATION CENTER                     *
-                                         * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+                                                /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                                                 *                    ENABLE NOTIFICATION CENTER                     *
+                                                 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-                                        // Start a timer based on recipe.preparationTime (converted to seconds)
-                                        let deadline = instruction.time * 60
+                                                // Start a timer based on recipe.preparationTime (converted to seconds)
+                                                let deadline = instruction.time * 60
 
-                                        // Call Notification Center
-                                        LocalNotificationManager.shared.scheduleNotification(title: "Seu preparo está pronto!", body: "Toque para abrir o app.", timeInterval: TimeInterval(deadline))
+                                                // Call Notification Center
+                                                LocalNotificationManager.shared.scheduleNotification(title: "Seu preparo está pronto!", body: "Toque para abrir o app.", timeInterval: TimeInterval(deadline))
 
-                                        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-                                         *                          ENABLE LIVE ACTIVITY                     *
-                                         * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+                                                /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                                                 *                          ENABLE LIVE ACTIVITY                     *
+                                                 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-                                        // Start Live Activity
-                                        // LACK OF DOCUMENTATION - COMPLETAMENTE BUGADO
-                                        let attributes = TimeTrackingAttributes()
-                                        // Pass selected instruction to state for the activity
-                                        let state = TimeTrackingAttributes.ContentState(recipe: recipe, instruction: instruction)
-                                        activity = try? Activity<TimeTrackingAttributes>.request(attributes: attributes, contentState: state, pushType: nil)
+                                                // Start Live Activity
+                                                // LACK OF DOCUMENTATION - COMPLETAMENTE BUGADO
+                                                let attributes = TimeTrackingAttributes()
+                                                // Pass selected instruction to state for the activity
+                                                let state = TimeTrackingAttributes.ContentState(recipe: recipe, instruction: instruction)
+                                                activity = try? Activity<TimeTrackingAttributes>.request(attributes: attributes, contentState: state, pushType: nil)
 
-                                        ActivityManager.shared.activity = activity
+                                                ActivityManager.shared.activity = activity
 
-                                        ActivityManager.shared.recipe = recipe
+                                                ActivityManager.shared.recipe = recipe
 
-                                    } else {
+                                            } else {
 
-                                        print("[DEBUG / RecipeView.swift]: Cancel button pressed;\n")
-                                        // FOR VISUAL FX AND DATA CONTROL
-                                        SharedDataManager.shared.setButtonPressed(isPressed: false)
-                                        SharedDataManager.shared.setSelectedButtonID(id: nil)
-                                        SharedDataManager.shared.setRecipe(recipe: nil)
+                                                print("[DEBUG / RecipeView.swift]: Cancel button pressed;\n")
+                                                // FOR VISUAL FX AND DATA CONTROL
+                                                SharedDataManager.shared.setButtonPressed(isPressed: false)
+                                                SharedDataManager.shared.setSelectedButtonID(id: nil)
+                                                SharedDataManager.shared.setRecipe(recipe: nil)
 
-                                        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-                                         *                    DISABLE NOTIFICATION CENTER                     *
-                                         * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-                                        print("[DEBUG / RecipeView.swift]: Removing All Pending Notification Requests\n")
+                                                /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                                                 *                    DISABLE NOTIFICATION CENTER                     *
+                                                 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+                                                print("[DEBUG / RecipeView.swift]: Removing All Pending Notification Requests\n")
 
-                                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                                                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
 
-                                        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-                                         *                    DISABLE LIVE ACTIVITIES                          *
-                                         * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-                                        ActivityManager.shared.endActivity()
+                                                /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                                                 *                    DISABLE LIVE ACTIVITIES                          *
+                                                 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+                                                ActivityManager.shared.endActivity()
+
+                                            }
 
                                     }
+
+
+                                   
+                                    if (SharedDataManager.shared.recipe?.id != nil && recipe.id != SharedDataManager.shared.recipe?.id) {
+
+                                    }
+                                    
+
                                 })
 
-                                .padding(.bottom,5)
-                                .alert(isPresented: $showingAlert) {
-                                    Alert(title: Text("Você iniciou um preparo!"), message: Text("Este estágio ficará pronto em \(instruction.time) minuto(s)."), dismissButton: .default(Text("Ok!")))
-                                }
-                            }
-
-                            //ESTÁ ENTRANDO NO IF DE BAIXO DEPOIS QUE O USUARIO APERTA ALGUM BOTAO DE RECEITA
-
-                            //Se o tempo de preparo for diferente de zero e o botão de iniciar preparo tiver sido precionado, isso implica que existe receita ativa, logo só mostra o texto se a receita visualizada for igual a receita ativa
-                            else if (instruction.time != 0 && SharedDataManager.shared.buttonPressed == true && recipe.id == SharedDataManager.shared.recipe?.id) {
-                                HStack {
-
-                                    Text("\(instruction.step)")
-                                    // Dynamically change font size
-                                        .font(SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ? .title3 : .subheadline)
-                                        .fontWeight(SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ? .bold : .regular)
-                                        .foregroundColor(SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ? .red : .blue)
-                                        .lineLimit(nil) // This allows the text to wrap onto as many lines as needed
-                                        .fixedSize(horizontal: false, vertical: true) // This allows the text view to expand vertically to fit the text
-                                        .transition(.scale) // Add transition for smoother change
-                                        .animation(.easeInOut, value: SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ) // Apply animation
 
 
-                                    if (SharedDataManager.shared.buttonPressed  && instruction.id == SharedDataManager.shared.selectedButtonID) {
-                                        ProgressView()
-                                            .padding(.leading,3)
-                                            .tint(.red)
-
-                                    } else {
-                                        Image(systemName: "clock")
-                                            .foregroundColor(SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ? .red : .blue)
-                                    }
-
-                                }
-                                .gesture(LongPressGesture(minimumDuration: 0.5).onEnded { _ in
-
-                                    let generator = UIImpactFeedbackGenerator(style: .heavy)
-                                    generator.impactOccurred()
-
-                                    //INVERTE A SITUACAO DO BOTAO PARA VERDADEIRO OU FALSOE
-                                    workingOnRecipeManager.isWorkingOnRecipe.toggle()
 
 
-                                    //SE O USUARIO INICIOU UMA ETAPA DE RECEITA, ATIVA TUDO
-                                    //MARK: ACTIVE ALL
-                                    if workingOnRecipeManager.isWorkingOnRecipe {
 
-                                        //Passing TargetTime to DataManager (Global)
-                                        SharedDataManager.shared.setTargetTime(minutes: instruction.time)
+//
+//                            //ESTÁ ENTRANDO NO IF DE BAIXO DEPOIS QUE O USUARIO APERTA ALGUM BOTAO DE RECEITA
+//                            //Se o tempo de preparo for diferente de zero e o botão de iniciar preparo tiver sido precionado, isso implica que existe receita ativa, logo só mostra o texto se a receita visualizada for igual a receita ativa
+//                            else if (instruction.time != 0 && SharedDataManager.shared.buttonPressed == true && recipe.id == SharedDataManager.shared.recipe?.id) {
+//                                HStack {
+//                                    Text("\(instruction.step)")
+//                                    // Dynamically change font size
+//                                        .font(SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ? .title3 : .subheadline)
+//                                        .fontWeight(SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ? .bold : .regular)
+//                                        .foregroundColor(SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ? .red : .blue)
+//                                        .lineLimit(nil) // This allows the text to wrap onto as many lines as needed
+//                                        .fixedSize(horizontal: false, vertical: true) // This allows the text view to expand vertically to fit the text
+//                                        .transition(.scale) // Add transition for smoother change
+//                                        .animation(.easeInOut, value: SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ) // Apply animation
+//
+//
+//                                    if (SharedDataManager.shared.buttonPressed  && instruction.id == SharedDataManager.shared.selectedButtonID) {
+//                                        ProgressView()
+//                                            .padding(.leading,3)
+//                                            .tint(.red)
+//
+//                                    } else {
+//                                        Image(systemName: "clock")
+//                                            .foregroundColor(SharedDataManager.shared.buttonPressed && instruction.id == SharedDataManager.shared.selectedButtonID ? .red : .blue)
+//                                    }
+//
+//                                }
+//                                .gesture(LongPressGesture(minimumDuration: 0.5).onEnded { _ in
+//
+//                                    let generator = UIImpactFeedbackGenerator(style: .heavy)
+//                                    generator.impactOccurred()
+//
+//                                    //INVERTE A SITUACAO DO BOTAO PARA VERDADEIRO OU FALSOE
+//                                    workingOnRecipeManager.isWorkingOnRecipe.toggle()
+//
+//
+//                                    //SE O USUARIO INICIOU UMA ETAPA DE RECEITA, ATIVA TUDO
+//                                    //MARK: ACTIVE ALL
+//                                    if workingOnRecipeManager.isWorkingOnRecipe {
+//
+//                                        //Passing TargetTime to DataManager (Global)
+//                                        SharedDataManager.shared.setTargetTime(minutes: instruction.time)
+//
+//                                        // FOR VISUAL FX AND DATA CONTROL
+//                                        SharedDataManager.shared.setButtonPressed(isPressed: true)
+//                                        SharedDataManager.shared.setSelectedButtonID(id: instruction.id)
+//                                        SharedDataManager.shared.setRecipe(recipe: recipe)
+//
+//                                        // FOR ALERT ONLY
+//                                        self.showingAlert = true
+//
+//                                        //MARK: FOR DEBUG ONLY - MAY KEEP THIS DISABLE IF U WANT
+//                                        //MARK: Print the in console the TargetTime for preparationInstructions
+//                                        SharedDataManager.shared.getFormattedTargetTime()
+//
+//                                        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+//                                         *                    ENABLE NOTIFICATION CENTER                     *
+//                                         * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+//
+//                                        // Start a timer based on recipe.preparationTime (converted to seconds)
+//                                        let deadline = instruction.time * 60
+//
+//                                        // Call Notification Center
+//                                        LocalNotificationManager.shared.scheduleNotification(title: "Seu preparo está pronto!", body: "Toque para abrir o app.", timeInterval: TimeInterval(deadline))
+//
+//                                        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+//                                         *                          ENABLE LIVE ACTIVITY                     *
+//                                         * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+//
+//                                        // Start Live Activity
+//                                        // LACK OF DOCUMENTATION - COMPLETAMENTE BUGADO
+//                                        let attributes = TimeTrackingAttributes()
+//                                        // Pass selected instruction to state for the activity
+//                                        let state = TimeTrackingAttributes.ContentState(recipe: recipe, instruction: instruction)
+//                                        activity = try? Activity<TimeTrackingAttributes>.request(attributes: attributes, contentState: state, pushType: nil)
+//
+//                                        ActivityManager.shared.activity = activity
+//
+//                                        ActivityManager.shared.recipe = recipe
+//
+//                                    } else {
+//
+//                                        print("[DEBUG / RecipeView.swift]: Cancel button pressed;\n")
+//                                        // FOR VISUAL FX AND DATA CONTROL
+//                                        SharedDataManager.shared.setButtonPressed(isPressed: false)
+//                                        SharedDataManager.shared.setSelectedButtonID(id: nil)
+//                                        SharedDataManager.shared.setRecipe(recipe: nil)
+//
+//                                        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+//                                         *                    DISABLE NOTIFICATION CENTER                     *
+//                                         * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+//                                        print("[DEBUG / RecipeView.swift]: Removing All Pending Notification Requests\n")
+//
+//                                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+//
+//                                        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+//                                         *                    DISABLE LIVE ACTIVITIES                          *
+//                                         * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+//                                        ActivityManager.shared.endActivity()
+//
+//                                    }
+//                                })
+//
+//                                .padding(.bottom,5)
+//                                .alert(isPresented: $showingAlert) {
+//                                    Alert(title: Text("Você iniciou um preparo!"), message: Text("Este estágio ficará pronto em \(instruction.time) minuto(s)."), dismissButton: .default(Text("Ok!")))
+//                                }
+//                            }
+//
+//                            else {
+//                                Text(instruction.step)
+//                                    .font(.subheadline)
+//                                    .padding(.bottom,5)
+//                            }
 
-                                        // FOR VISUAL FX AND DATA CONTROL
-                                        SharedDataManager.shared.setButtonPressed(isPressed: true)
-                                        SharedDataManager.shared.setSelectedButtonID(id: instruction.id)
-                                        SharedDataManager.shared.setRecipe(recipe: recipe)
-
-                                        // FOR ALERT ONLY
-                                        self.showingAlert = true
-
-                                        //MARK: FOR DEBUG ONLY - MAY KEEP THIS DISABLE IF U WANT
-                                        //MARK: Print the in console the TargetTime for preparationInstructions
-                                        SharedDataManager.shared.getFormattedTargetTime()
-
-                                        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-                                         *                    ENABLE NOTIFICATION CENTER                     *
-                                         * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-                                        // Start a timer based on recipe.preparationTime (converted to seconds)
-                                        let deadline = instruction.time * 60
-
-                                        // Call Notification Center
-                                        LocalNotificationManager.shared.scheduleNotification(title: "Seu preparo está pronto!", body: "Toque para abrir o app.", timeInterval: TimeInterval(deadline))
-
-                                        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-                                         *                          ENABLE LIVE ACTIVITY                     *
-                                         * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-                                        // Start Live Activity
-                                        // LACK OF DOCUMENTATION - COMPLETAMENTE BUGADO
-                                        let attributes = TimeTrackingAttributes()
-                                        // Pass selected instruction to state for the activity
-                                        let state = TimeTrackingAttributes.ContentState(recipe: recipe, instruction: instruction)
-                                        activity = try? Activity<TimeTrackingAttributes>.request(attributes: attributes, contentState: state, pushType: nil)
-
-                                        ActivityManager.shared.activity = activity
-
-                                        ActivityManager.shared.recipe = recipe
-
-                                    } else {
-
-                                        print("[DEBUG / RecipeView.swift]: Cancel button pressed;\n")
-                                        // FOR VISUAL FX AND DATA CONTROL
-                                        SharedDataManager.shared.setButtonPressed(isPressed: false)
-                                        SharedDataManager.shared.setSelectedButtonID(id: nil)
-                                        SharedDataManager.shared.setRecipe(recipe: nil)
-
-                                        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-                                         *                    DISABLE NOTIFICATION CENTER                     *
-                                         * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-                                        print("[DEBUG / RecipeView.swift]: Removing All Pending Notification Requests\n")
-
-                                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-
-                                        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-                                         *                    DISABLE LIVE ACTIVITIES                          *
-                                         * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-                                        ActivityManager.shared.endActivity()
-
-                                    }
-                                })
-
-                                .padding(.bottom,5)
-                                .alert(isPresented: $showingAlert) {
-                                    Alert(title: Text("Você iniciou um preparo!"), message: Text("Este estágio ficará pronto em \(instruction.time) minuto(s)."), dismissButton: .default(Text("Ok!")))
-                                }
-                            }
-
-                            else {
-                                Text(instruction.step)
-                                    .font(.subheadline)
-                                    .padding(.bottom,5)
-                            }
                         } //END OF FOREACH
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
+
             }
             .padding(.leading)
             .padding(.trailing)
