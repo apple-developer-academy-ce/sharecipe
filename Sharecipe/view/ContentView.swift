@@ -5,6 +5,8 @@ import SwiftUI
 struct ContentView: View {
 
     @State private var selectedTab = 0
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+
 
     var body: some View {
         ZStack {
@@ -40,8 +42,17 @@ struct ContentView: View {
         .toolbar {
 
             ToolbarItem(placement: .principal) {
+
                 Text("Flavory") //Title Aligned to the left of screen
                     .font(.custom("HV-Cocktail-Regular", size: UIDevice.current.userInterfaceIdiom == .phone ? 36 : 72))
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+
+                Button {
+                    isDarkMode.toggle()
+                } label: {
+                    Image(systemName: isDarkMode ? "moon.fill" : "sun.max.fill")
+                }
             }
 
             ToolbarItemGroup(placement: .bottomBar) {
@@ -87,6 +98,8 @@ struct ContentView: View {
                 Spacer()
             }
         }
+        .preferredColorScheme(isDarkMode ? .dark : .light)
+
 
     }
 

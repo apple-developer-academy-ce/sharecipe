@@ -18,6 +18,8 @@ class SharedDataManager: ObservableObject {
     @Published var buttonPressed: Bool = false
     @Published var instructionId: UUID? = nil
 
+    @Published var instrutionTime: Int = 0
+
     //For Recipe Persistance
     @Published var recipe: Recipe? = nil  // This will hold your current recipe
 
@@ -60,9 +62,9 @@ class SharedDataManager: ObservableObject {
         self.recipe = recipe
     }
 
-    func getAlert(for instruction: Instruction) -> Alert {
+    func getAlert() -> Alert {
         Alert(title: Text("Você iniciou um preparo!"),
-              message: Text("Este estágio ficará pronto em \(instruction.time) minuto(s)."),
+              message: Text("Este estágio ficará pronto em \(self.instrutionTime) minuto(s)."),
               dismissButton: .default(Text("Ok!"))
         )
     }

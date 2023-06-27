@@ -15,6 +15,7 @@ struct SharecipeApp: App {
         WindowGroup {
             NavigationStack {
                 LoadingView()
+                
             }
             .environmentObject(workingOnRecipeManager)
         }

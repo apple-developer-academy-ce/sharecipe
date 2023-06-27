@@ -200,37 +200,7 @@ struct RecipeData {
                     Instruction(step: "Divida a mousse em taças ou potinhos individuais e leve à geladeira por pelo menos 4 horas, ou até que esteja bem firme.", time: 240),
                     Instruction(step: "Sirva gelado e desfrute dessa irresistível mousse de chocolate!", time: 0)
                 ]
-            ),
-            Recipe(
-                name: "Mousse de Chocolate",
-                cardImage: "cardMousseChocolate",
-                recipeImage: "recipeMousseChocolate",
-                preparationTime: 30,
-                level: "Médio",
-                portion: "6 porções",
-                tools: ["tigela", "batedeira", "espátula", "taças ou potinhos para servir", "geladeira"],
-                ingredients: [
-                    "200g de chocolate meio amargo",
-                    "3 ovos",
-                    "3 colheres de sopa de açúcar",
-                    "1 colher de chá de essência de baunilha (opcional)",
-                    "1 pitada de sal",
-                    "1 lata de creme de leite"
-                ],
-                preparationInstructions: [
-                    Instruction(step: "Derreta o chocolate meio amargo em banho-maria ou no micro-ondas, mexendo até ficar completamente derretido e liso. Reserve e deixe esfriar um pouco.", time: 0),
-                    Instruction(step: "Separe as gemas das claras dos ovos.", time: 0),
-                    Instruction(step: "Em uma tigela, bata as gemas com o açúcar até obter uma mistura clara e fofa.", time: 0),
-                    Instruction(step: "Adicione a essência de baunilha (se estiver usando) e a pitada de sal à mistura de gemas e açúcar, e continue batendo até incorporar.", time: 0),
-                    Instruction(step: "Adicione o chocolate derretido à mistura de gemas e açúcar, mexendo bem para incorporar.", time: 0),
-                    Instruction(step: "Em outra tigela, bata as claras em neve até obter picos firmes.", time: 0),
-                    Instruction(step: "Incorpore delicadamente as claras em neve à mistura de chocolate, fazendo movimentos suaves de baixo para cima até obter uma massa homogênea.", time: 0),
-                    Instruction(step: "Por fim, adicione o creme de leite à mistura e misture suavemente até ficar bem incorporado.", time: 0),
-                    Instruction(step: "Divida a mousse em taças ou potinhos individuais e leve à geladeira por pelo menos 4 horas, ou até que esteja bem firme.", time: 240),
-                    Instruction(step: "Sirva gelado e desfrute dessa irresistível mousse de chocolate!", time: 0)
-                ]
             )
-
         ]),
         CookingLevel(name: "Elaborado", recipes: [
             Recipe(

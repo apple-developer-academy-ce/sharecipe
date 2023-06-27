@@ -12,6 +12,9 @@ struct RecipeView: View {
     @State private var activity: Activity<TimeTrackingAttributes>? = nil
     @State private var showingAlert = false
 
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+
+
     //@State private var buttonPressed = false
     //@State private var selectedButtonID: UUID? = nil
 
@@ -47,7 +50,7 @@ struct RecipeView: View {
 
             Divider()
 
-            ScrollView {
+            ScrollView (.vertical, showsIndicators: false) {
 
                 //Resumo da Receita
                 Group {
@@ -195,29 +198,37 @@ struct RecipeView: View {
                                     } else {
                                         NavigationLink(destination: RecipeView(recipe: SharedDataManager.shared.recipe!)) {
                                             HStack {
-
                                                 Image(systemName: "eye.trianglebadge.exclamationmark.fill")
-
                                                     .resizable()
                                                     .frame(width: 55, height: 30)
-                                                    .foregroundColor(.yellow)
+                                                    .foregroundColor(.red)
 
-                                                (
-                                                    Text("Você já possui uma receita em andamento. Por favor, finalize sua receita anterior antes de iniciar uma nova. ")
-                                                        .foregroundColor(Color(.systemGray))
-                                                    +
 
-                                                    Text("Receita de Nível \(SharedDataManager.shared.recipe?.level ?? "Unknow Recipe"),  \(SharedDataManager.shared.recipe?.name ?? "Unknow Recipe"). ")
-                                                        .foregroundColor(.red)
+                                                VStack(alignment: .leading) {
+                                                    (
+                                                        Text("Você já possui uma receita em andamento. Por favor, finalize sua receita anterior antes de iniciar uma nova. ")
+                                                            .foregroundColor(.primary)
+                                                        +
 
-                                                    +
+                                                        Text("Receita de Nível \(SharedDataManager.shared.recipe?.level ?? "Unknow Recipe"),  \(SharedDataManager.shared.recipe?.name ?? "Unknow Recipe"). ")
+                                                            .foregroundColor(.red)
 
-                                                    Text("Toque para ver a receita em andamento...")
-                                                        .foregroundColor(Color(.systemGray))
-                                                )
+                                                        +
+
+                                                        Text("Toque para ver a receita em andamento...")
+                                                            .foregroundColor(.primary)
+                                                    )
+                                                    .multilineTextAlignment(.leading)
+                                                    .font(.callout)
+
+                                                }
                                                 .multilineTextAlignment(.leading)
                                                 .font(.callout)
                                             }
+                                            .padding()
+                                            .background(Color(.systemGray).opacity(0.2)) // opacity applied to the background only
+                                            .cornerRadius(10)
+
                                         }
                                     }
                                 }
@@ -306,9 +317,7 @@ struct RecipeView: View {
 
                                 }
                                 .padding(.bottom,5)
-
-                                .alert(isPresented: $showingAlert) { SharedDataManager.shared.getAlert(for: instruction) }
-
+                                
                                 .gesture(LongPressGesture(minimumDuration: 0.5).onEnded { _ in
 
                                     let generator = UIImpactFeedbackGenerator(style: .heavy)
@@ -333,6 +342,7 @@ struct RecipeView: View {
 
                                         // FOR ALERT ONLY
                                         self.showingAlert = true
+                                        SharedDataManager.shared.instrutionTime = instruction.time
 
                                         //MARK: FOR DEBUG ONLY - MAY KEEP THIS DISABLE IF U WANT
                                         //MARK: Print the in console the TargetTime for preparationInstructions
@@ -391,8 +401,16 @@ struct RecipeView: View {
                                     }
                                 })
 
+                                .alert(isPresented: $showingAlert) {
+                                    SharedDataManager.shared.getAlert()
+                                }
+
+
+
                         } //END OF FOREACH
+                        
                     }
+                    .padding(.bottom,10)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
 
@@ -418,18 +436,17 @@ struct RecipeView: View {
 
         .toolbarBackground(Color(.systemGray6).opacity(0.0), for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
-        //        .toolbar {
-        //            ToolbarItemGroup(placement: .navigation) {
-        //                Button("First") {
-        //                    print("Pressed")
-        //                }
-        //
-        //                Spacer()
-        //
-        //                Button("Second") {
-        //                    print("Pressed")
-        //                }
-        //            }
-        //        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+
+                Button {
+                    isDarkMode.toggle()
+                } label: {
+                    Image(systemName: isDarkMode ? "moon.fill" : "sun.max.fill")
+                }
+            }
+        }
+        .preferredColorScheme(isDarkMode ? .dark : .light)
+
     }
 }
