@@ -257,8 +257,7 @@ struct RecipeView: View {
 
                             //TODO: BUG FOUND
                             //MARK: DESCOBRIR COMO RESOLVER - PROBLEMA NO ANIMATION
-                            //MARK: APOS ATUALIZAR O SHARED.BUTTONPRESSED, APLICACAO ENTRA NO OUTRO IF (ELSE IF) ????
-                            //Se o tempo de preparo for diferente de zero e o botão de iniciar preparo não tiver sido precionado, isso implica que não existe nenhuma receita ativa, logo mostra o texto normalmente.
+
 
                                 HStack {
 
@@ -441,6 +440,8 @@ struct RecipeView: View {
 
                 Button {
                     isDarkMode.toggle()
+                    let generator = UIImpactFeedbackGenerator(style: .heavy)
+                    generator.impactOccurred()
                 } label: {
                     Image(systemName: isDarkMode ? "moon.fill" : "sun.max.fill")
                 }

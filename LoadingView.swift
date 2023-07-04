@@ -2,6 +2,7 @@ import SwiftUI
 
 struct LoadingView: View {
     @State private var enableHomeView = false
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
 
     var body: some View {
 
@@ -47,6 +48,8 @@ struct LoadingView: View {
         .navigationDestination(isPresented: $enableHomeView) {
             ContentView()
         }
+        .preferredColorScheme(isDarkMode ? .dark : .light)
+
     }
 
     private func prepareToNavigate() {

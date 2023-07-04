@@ -50,6 +50,8 @@ struct ContentView: View {
 
                 Button {
                     isDarkMode.toggle()
+                    let generator = UIImpactFeedbackGenerator(style: .heavy)
+                    generator.impactOccurred()
                 } label: {
                     Image(systemName: isDarkMode ? "moon.fill" : "sun.max.fill")
                 }

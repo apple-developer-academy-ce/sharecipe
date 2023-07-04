@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		850CEE642A375640004F14A9 /* TimeTrackingAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850CEE632A375640004F14A9 /* TimeTrackingAttributes.swift */; };
-		850CEEC02A389D30004F14A9 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 850CEEBF2A389D30004F14A9 /* WidgetKit.framework */; };
-		850CEEC22A389D30004F14A9 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 850CEEC12A389D30004F14A9 /* SwiftUI.framework */; };
 		850CEEC52A389D30004F14A9 /* TimeTracker_WidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850CEEC42A389D30004F14A9 /* TimeTracker_WidgetBundle.swift */; };
 		850CEEC72A389D30004F14A9 /* TimeTracker_Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850CEEC62A389D30004F14A9 /* TimeTracker_Widget.swift */; };
 		850CEEC92A389D31004F14A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 850CEEC82A389D31004F14A9 /* Assets.xcassets */; };
@@ -25,6 +23,8 @@
 		85366F812A2F706400FF327D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85366F802A2F706400FF327D /* Preview Assets.xcassets */; };
 		85366F8D2A2F710200FF327D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85366F8C2A2F710200FF327D /* LoadingView.swift */; };
 		85884F422A4A1641005CEA63 /* RecipeView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85884F412A4A1641005CEA63 /* RecipeView2.swift */; };
+		85884F432A4A6191005CEA63 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 850CEEC12A389D30004F14A9 /* SwiftUI.framework */; };
+		85884F462A4A6192005CEA63 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 850CEEBF2A389D30004F14A9 /* WidgetKit.framework */; };
 		85893F192A3B718B009D4B7E /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85893F182A3B718B009D4B7E /* LocalNotificationManager.swift */; };
 		85893F1A2A3B718B009D4B7E /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85893F182A3B718B009D4B7E /* LocalNotificationManager.swift */; };
 		85893F1C2A3B8257009D4B7E /* ActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85893F1B2A3B8257009D4B7E /* ActivityManager.swift */; };
@@ -107,8 +107,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				850CEEC22A389D30004F14A9 /* SwiftUI.framework in Frameworks */,
-				850CEEC02A389D30004F14A9 /* WidgetKit.framework in Frameworks */,
+				85884F432A4A6191005CEA63 /* SwiftUI.framework in Frameworks */,
+				85884F462A4A6192005CEA63 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,7 +404,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 4742JJ9L6T;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TimeTracker_Widget/Info.plist;
@@ -416,7 +416,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "apple-developer-academy-ce.Sharecipe.TimeTracker-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -432,7 +432,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 4742JJ9L6T;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TimeTracker_Widget/Info.plist;
@@ -444,7 +444,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "apple-developer-academy-ce.Sharecipe.TimeTracker-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -575,7 +575,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"Sharecipe/Preview Content\"";
 				DEVELOPMENT_TEAM = 4742JJ9L6T;
 				ENABLE_PREVIEWS = YES;
@@ -609,7 +609,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"Sharecipe/Preview Content\"";
 				DEVELOPMENT_TEAM = 4742JJ9L6T;
 				ENABLE_PREVIEWS = YES;
